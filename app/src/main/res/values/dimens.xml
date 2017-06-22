@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    //DIMENSIONES SOBRE EL TOOLBAR
+    <dimen name="tamaño_altura_toolbar">4dp</dimen>
+    <dimen name="tamaño_largo_tab">4dp</dimen>
+    <dimen name="elevacion_bar">4dp</dimen>
+
+
+</resources>

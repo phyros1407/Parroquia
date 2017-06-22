@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Parroquia</string>
+
+    //TITULOS DE TAB
+    <string name="tab_text_1">Mapa</string>
+    <string name="tab_text_2">Eventos</string>
+    <string name="tab_text_3">Misa</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
