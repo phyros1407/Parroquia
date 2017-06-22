@@ -31,8 +31,6 @@ public class MainActivity  extends FragmentActivity {
     }
 
 
-
-
     //CONSTRUIR PENSTAÑAS
 
     private void setupViewPager(ViewPager viewPager) {
