@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_gravity="center_horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingBottom="16dp"
-    android:paddingTop="16dp"
-    >
-
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        card_view:cardCornerRadius="4dp">
-
+    android:layout_height="230dp"
+    card_view:cardCornerRadius="4dp"
+    android:layout_marginTop="20dp"
+    android:elevation="@dimen/elevacion_card">
 
 
         <LinearLayout
@@ -27,26 +20,71 @@
                 android:id="@+id/fondo"
                 android:layout_width="match_parent"
                 android:layout_height="165dp"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/evento_catolico"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3">
 
-                <TextView
-                    android:id="@+id/titulo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="15dp"
-                    />
+                    <TextView
+                        android:id="@+id/titulo"
+                        android:layout_marginTop="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/primary_text"
+                        android:textSize="18dp"
+                        android:text="Titulo del evento"
+                        />
+
+                    <TextView
+                        android:id="@+id/nombre_parroquia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/secondary_text"
+                        android:text="parroquia"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/fecha_inicio"
+                        android:layout_marginTop="25dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/primary_text"
+                        android:textSize="18dp"
+                        android:text="27 JUN"
+                        />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
 
         </LinearLayout>
+
     </android.support.v7.widget.CardView>
 
-</RelativeLayout>
+
+

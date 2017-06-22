@@ -67,8 +67,6 @@ public class EventosFragment extends Fragment {
 
     private void prepareMovieData() {
 
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-
         String url = "http://env-4981020.jelasticlw.com.br/serviciosparroquia/index.php/eventos";
 
         JsonArrayRequest arrayreq = new JsonArrayRequest(url,
@@ -82,8 +80,12 @@ public class EventosFragment extends Fragment {
                                 JSONObject jsonObject = response.getJSONObject(i);
 
                                 String titulo = jsonObject.getString("titulo");
+                                String parroquia = jsonObject.getString("parroquia");
+                                String fechaInicio = jsonObject.getString("fecha_inicio");
                                 EventoBean evento = new EventoBean();
                                 evento.setTitulo(titulo);
+                                evento.setNombre_parroquia(parroquia);
+                                evento.setFec_ini(fechaInicio);
                                 listaEventos.add(evento);
                                 eAdapter.notifyDataSetChanged();
                             }

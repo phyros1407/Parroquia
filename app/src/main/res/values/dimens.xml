@@ -6,5 +6,8 @@
     <dimen name="tamaño_largo_tab">4dp</dimen>
     <dimen name="elevacion_bar">4dp</dimen>
 
+    <dimen name="elevacion_card">2dp</dimen>
+    <dimen name="elevacion_flotante">6dp</dimen>
+
 
 </resources>

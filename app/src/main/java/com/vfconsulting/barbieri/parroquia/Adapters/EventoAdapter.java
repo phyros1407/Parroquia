@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.vision.text.Text;
 import com.vfconsulting.barbieri.parroquia.Beans.EventoBean;
 import com.vfconsulting.barbieri.parroquia.R;
 
@@ -24,11 +25,15 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView titulo;
         public ImageView fondo;
+        public TextView parroquia;
+        public TextView fechaInicio;
 
         public MyViewHolder(View view) {
             super(view);
             titulo = (TextView) view.findViewById(R.id.titulo);
             fondo = (ImageView) view.findViewById(R.id.fondo);
+            parroquia = (TextView) view.findViewById(R.id.nombre_parroquia);
+            fechaInicio = (TextView) view.findViewById(R.id.fecha_inicio);
         }
     }
 
@@ -48,6 +53,8 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, int position) {
         EventoBean evento = listaEventos.get(position);
         holder.titulo.setText(evento.getTitulo());
+        holder.parroquia.setText(evento.getNombre_parroquia());
+        holder.fechaInicio.setText(evento.getFec_ini());
        // holder.fondo.setImageResource(evento.));
     }
 
