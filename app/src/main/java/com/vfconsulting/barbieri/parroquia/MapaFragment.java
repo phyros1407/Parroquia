@@ -1,9 +1,11 @@
 package com.vfconsulting.barbieri.parroquia;
 
+import android.*;
+import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,8 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
         mMapView.onCreate(mBundle);
         setUpMapIfNeeded(inflatedView);
 
+
+
         mMapView.getMapAsync(this);
 
         return inflatedView;
@@ -44,6 +48,13 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        } else {
+            // Show rationale and request permission.
+        }
 
         // Add a marker in Sydney, Australia, and move the camera.
         LatLng sydney = new LatLng(-34, 151);

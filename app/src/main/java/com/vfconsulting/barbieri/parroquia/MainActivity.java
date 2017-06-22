@@ -8,13 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import com.vfconsulting.barbieri.parroquia.Adapters.EventoAdapter;
-import com.vfconsulting.barbieri.parroquia.Beans.EventoBean;
-
-
+import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,11 +21,6 @@ public class MainActivity  extends FragmentActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-
-
 
         //  AGREGANDO A LA TABs
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -86,6 +75,15 @@ public class MainActivity  extends FragmentActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+    public interface ClickListener {
+
+        void onClick(View view, int position);
+
+        void onLongClick(View view, int position);
+    }
+
+
 
 
 }

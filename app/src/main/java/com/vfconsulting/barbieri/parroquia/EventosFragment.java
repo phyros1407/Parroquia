@@ -1,6 +1,8 @@
 package com.vfconsulting.barbieri.parroquia;
 
 
+import android.content.Intent;
+import android.graphics.Movie;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,15 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.stream.JsonReader;
 import com.vfconsulting.barbieri.parroquia.Adapters.EventoAdapter;
 import com.vfconsulting.barbieri.parroquia.Beans.EventoBean;
 
@@ -28,9 +24,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +52,25 @@ public class EventosFragment extends Fragment {
 
         prepareMovieData();
 
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new MainActivity.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+                EventoBean evento = listaEventos.get(position);
+
+                Intent intent = new Intent(getContext(), DetalleActivity.class);
+                intent.putExtra("id_evento",evento.getId());
+                startActivity(intent);
+
+                Toast.makeText(getContext(), evento.getTitulo() + " is selected!"+evento.getId(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
 
         return view;
     }
@@ -79,10 +91,12 @@ public class EventosFragment extends Fragment {
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonObject = response.getJSONObject(i);
 
+                                int id = jsonObject.getInt("id");
                                 String titulo = jsonObject.getString("titulo");
                                 String parroquia = jsonObject.getString("parroquia");
                                 String fechaInicio = jsonObject.getString("fecha_inicio");
                                 EventoBean evento = new EventoBean();
+                                evento.setId(id);
                                 evento.setTitulo(titulo);
                                 evento.setNombre_parroquia(parroquia);
                                 evento.setFec_ini(fechaInicio);

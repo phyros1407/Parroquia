@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.vision.text.Text;
 import com.vfconsulting.barbieri.parroquia.Beans.EventoBean;
 import com.vfconsulting.barbieri.parroquia.R;
 
