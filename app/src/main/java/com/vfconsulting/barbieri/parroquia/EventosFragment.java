@@ -75,8 +75,6 @@ public class EventosFragment extends Fragment {
         return view;
     }
 
-
-
     private void prepareMovieData() {
 
         String url = "http://env-4981020.jelasticlw.com.br/serviciosparroquia/index.php/eventos";
