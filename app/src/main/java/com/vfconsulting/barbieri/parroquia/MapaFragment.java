@@ -66,7 +66,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
             mMap.setMyLocationEnabled(true);
         }
 
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
 
         UiSettings uiSettings = mMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
@@ -104,7 +104,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
         );
 
 
-
+/*
         LocationManager locationManager = (LocationManager)getContext().getSystemService(getContext().LOCATION_SERVICE);
         Location myLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
         double longitude = myLocation.getLongitude();
@@ -116,7 +116,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
         mMap.moveCamera(cameraPosition);
         mMap.animateCamera(cameraPosition);
 
-
+*/
 
 
 
