@@ -50,16 +50,25 @@ public class EventosFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(eAdapter);
 
-        prepareMovieData();
+        prepareEventosData();
 
+
+        //EVENTOS CLICK
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new MainActivity.ClickListener() {
             @Override
             public void onClick(View view, int position) {
 
                 EventoBean evento = listaEventos.get(position);
 
+
+                //ENVIANDO INFORMACION A DETALLE_ACTIVITY
                 Intent intent = new Intent(getContext(), DetalleActivity.class);
                 intent.putExtra("id_evento",evento.getId());
+                intent.putExtra("titulo_evento",evento.getTitulo());
+                intent.putExtra("nombre_parroquia",evento.getNombre_parroquia());
+                intent.putExtra("fecha_inicio",evento.getFec_ini());
+                intent.putExtra("fecha_fin",evento.getFec_fin());
+                intent.putExtra("descripcion_evento",evento.getDescripcion());
                 startActivity(intent);
 
                 Toast.makeText(getContext(), evento.getTitulo() + " is selected!"+evento.getId(), Toast.LENGTH_SHORT).show();
@@ -75,7 +84,9 @@ public class EventosFragment extends Fragment {
         return view;
     }
 
-    private void prepareMovieData() {
+
+    //CARGANDO DATOS CON VOLLEY
+    private void prepareEventosData() {
 
         String url = "http://env-4981020.jelasticlw.com.br/serviciosparroquia/index.php/eventos";
 
@@ -91,13 +102,18 @@ public class EventosFragment extends Fragment {
 
                                 int id = jsonObject.getInt("id");
                                 String titulo = jsonObject.getString("titulo");
+                                String descripcion = jsonObject.getString("descripcion");
                                 String parroquia = jsonObject.getString("parroquia");
                                 String fechaInicio = jsonObject.getString("fecha_inicio");
+                                String fechaFin = jsonObject.getString("fecha_fin");
+
                                 EventoBean evento = new EventoBean();
                                 evento.setId(id);
                                 evento.setTitulo(titulo);
+                                evento.setDescripcion(descripcion);
                                 evento.setNombre_parroquia(parroquia);
                                 evento.setFec_ini(fechaInicio);
+                                evento.setFec_fin(fechaFin);
                                 listaEventos.add(evento);
                                 eAdapter.notifyDataSetChanged();
                             }

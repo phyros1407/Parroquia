@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -33,9 +34,6 @@ public class DetalleActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detalle_activity);
 
-
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_1);
         toolbar.setNavigationIcon(R.drawable.quantum_ic_play_arrow_white_24);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -45,16 +43,33 @@ public class DetalleActivity extends Activity{
             }
         });
 
+        prepararInformacionGeneral();
+        prepareActividadesData();
+
     }
 
     public void prepararInformacionGeneral(){
 
+        TextView titulo = (TextView)findViewById(R.id.titulo_evento_general);
+        TextView parroquia = (TextView)findViewById(R.id.parroquia_evento_general);
+        TextView descripcion = (TextView)findViewById(R.id.descripcion_general);
+        TextView rango_fecha = (TextView)findViewById(R.id.rango_fecha);
 
+        String titulo_evento = getIntent().getExtras().getString("titulo_evento");
+        String nombre_parroquia = getIntent().getExtras().getString("nombre_parroquia");
+        String descripcion_evento = getIntent().getExtras().getString("descripcion_evento");
+        String fecha_inicio = getIntent().getExtras().getString("fecha_inicio");
+        String fecha_fin = getIntent().getExtras().getString("fecha_fin");
+
+        titulo.setText(titulo_evento);
+        parroquia.setText(nombre_parroquia);
+        descripcion.setText(descripcion_evento);
+        rango_fecha.setText("DE "+fecha_inicio+" A "+fecha_fin);
 
 
     }
 
-    private void prepareMovieData() {
+    private void prepareActividadesData() {
 
         int id = getIntent().getExtras().getInt("id_evento");
 

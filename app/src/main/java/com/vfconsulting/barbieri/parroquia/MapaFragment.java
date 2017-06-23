@@ -129,9 +129,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
 
     private void setUpMapIfNeeded(View inflatedView) {
         if (mMap != null) {
-
                 setUpMap();
-
         }
     }
 

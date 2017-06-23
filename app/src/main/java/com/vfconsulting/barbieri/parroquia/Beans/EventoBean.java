@@ -12,11 +12,20 @@ public class EventoBean {
 
     private int id;
     private String titulo;
+    private String descripcion;
     private Bitmap fondo;
     private String nombre_parroquia;
     private String estado;
     private String fec_ini;
     private String fec_fin;
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
     public String getFec_ini() {
         return fec_ini;
