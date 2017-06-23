@@ -40,6 +40,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
     private GoogleMap mMap;
     private Bundle mBundle;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -103,7 +104,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
         );
 
 
-        /*
+
         LocationManager locationManager = (LocationManager)getContext().getSystemService(getContext().LOCATION_SERVICE);
         Location myLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
         double longitude = myLocation.getLongitude();
@@ -114,7 +115,11 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
         CameraUpdate cameraPosition = CameraUpdateFactory.newLatLngZoom(me,15);
         mMap.moveCamera(cameraPosition);
         mMap.animateCamera(cameraPosition);
-*/
+
+
+
+
+
         MySingleton.getInstance(getContext()).addToRequestQueue(arrayreq);
     }
 

@@ -14,8 +14,6 @@ import java.util.List;
 
 public class MainActivity  extends FragmentActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -30,7 +28,6 @@ public class MainActivity  extends FragmentActivity {
 
     }
 
-
     //CONSTRUIR PENSTAÑAS
 
     private void setupViewPager(ViewPager viewPager) {
@@ -40,7 +37,6 @@ public class MainActivity  extends FragmentActivity {
         adapter.addFragment(new MisasFragment(), "Misas");
         viewPager.setAdapter(adapter);
     }
-
 
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -82,6 +78,5 @@ public class MainActivity  extends FragmentActivity {
     }
 
 
-
-
+    
 }
