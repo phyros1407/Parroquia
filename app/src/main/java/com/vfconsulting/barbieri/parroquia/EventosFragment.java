@@ -44,6 +44,7 @@ public class EventosFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.lista_reciclada);
 
+        //SETEANDO EL ADAPTER Y RECYCLER VIEW
         eAdapter = new EventoAdapter(listaEventos);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -108,12 +109,14 @@ public class EventosFragment extends Fragment {
                                 String fechaFin = jsonObject.getString("fecha_fin");
 
                                 EventoBean evento = new EventoBean();
+
                                 evento.setId(id);
                                 evento.setTitulo(titulo);
                                 evento.setDescripcion(descripcion);
                                 evento.setNombre_parroquia(parroquia);
                                 evento.setFec_ini(fechaInicio);
                                 evento.setFec_fin(fechaFin);
+
                                 listaEventos.add(evento);
                                 eAdapter.notifyDataSetChanged();
                             }

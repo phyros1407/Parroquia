@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.vision.text.Text;
 import com.vfconsulting.barbieri.parroquia.Beans.ActividadBean;
 import com.vfconsulting.barbieri.parroquia.R;
 
@@ -24,12 +25,14 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.MyVi
         public TextView titulo;
         public TextView hora_inicio;
         public TextView hora_fin;
+        public TextView fecha_inicio;
 
         public MyViewHolder(View view) {
             super(view);
             titulo = (TextView) view.findViewById(R.id.titulo_actividad);
             hora_inicio = (TextView) view.findViewById(R.id.hora_inicio);
             hora_fin = (TextView) view.findViewById(R.id.hora_fin);
+            fecha_inicio = (TextView) view.findViewById(R.id.fecha_inicio_actividad);
         }
     }
 
@@ -51,6 +54,7 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.MyVi
         holder.titulo.setText(actividad.getTitulo());
         holder.hora_inicio.setText(actividad.getHora_inicio());
         holder.hora_fin.setText(actividad.getHora_fin());
+        holder.fecha_inicio.setText(actividad.getFecha_inicio_actividad());
         // holder.fondo.setImageResource(evento.));
     }
 

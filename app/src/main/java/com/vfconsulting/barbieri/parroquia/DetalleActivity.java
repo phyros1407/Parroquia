@@ -2,6 +2,9 @@ package com.vfconsulting.barbieri.parroquia;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.vfconsulting.barbieri.parroquia.Adapters.ActividadAdapter;
+import com.vfconsulting.barbieri.parroquia.Adapters.EventoAdapter;
 import com.vfconsulting.barbieri.parroquia.Beans.ActividadBean;
 import com.vfconsulting.barbieri.parroquia.Beans.EventoBean;
 
@@ -18,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,8 +31,9 @@ import java.util.List;
 
 public class DetalleActivity extends Activity{
 
-    ActividadAdapter aAdapter;
-    List<ActividadBean> actividades;
+    private ActividadAdapter aAdapter;
+    private List<ActividadBean> actividades = new ArrayList<>();
+    private RecyclerView recyclerView;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -43,6 +49,18 @@ public class DetalleActivity extends Activity{
             }
         });
 
+
+        recyclerView = (RecyclerView) findViewById(R.id.lista_reciclada_2);
+
+
+        //SETEANDO EL ADAPTER Y RECYCLER VIEW
+        aAdapter = new ActividadAdapter(actividades);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(aAdapter);
+
+
         prepararInformacionGeneral();
         prepareActividadesData();
 
@@ -50,6 +68,7 @@ public class DetalleActivity extends Activity{
 
     public void prepararInformacionGeneral(){
 
+        //CARGANDO DATOS GENERALES DEL EVENTO EN DETALLE
         TextView titulo = (TextView)findViewById(R.id.titulo_evento_general);
         TextView parroquia = (TextView)findViewById(R.id.parroquia_evento_general);
         TextView descripcion = (TextView)findViewById(R.id.descripcion_general);
@@ -64,7 +83,7 @@ public class DetalleActivity extends Activity{
         titulo.setText(titulo_evento);
         parroquia.setText(nombre_parroquia);
         descripcion.setText(descripcion_evento);
-        rango_fecha.setText("DE "+fecha_inicio+" A "+fecha_fin);
+        rango_fecha.setText("DE "+fecha_inicio+" A "+fecha_fin+"\t");
 
 
     }
@@ -81,26 +100,29 @@ public class DetalleActivity extends Activity{
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
+                            Log.e("respuesta --->",response.toString());
 
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonObject = response.getJSONObject(i);
 
-                                int id_evento = jsonObject.getInt("id_evento");
+
 
                                 String titulo = jsonObject.getString("titulo");
                                 String descripcion = jsonObject.getString("descripcion");
-                                String hora_inicio = jsonObject.getString("parroquia");
-                                String hora_fin = jsonObject.getString("fecha_inicio");
+                                String hora_inicio = jsonObject.getString("hora_inicio_actividad");
+                                String hora_fin = jsonObject.getString("hora_fin_actividad");
                                 String fecha_inicio_actividad = jsonObject.getString("fecha_inicio_actividad");
 
 
                                 ActividadBean actividad = new ActividadBean();
-                                actividad.setId(id_evento);
+
+
                                 actividad.setTitulo(titulo);
                                 actividad.setDescripcion(descripcion);
                                 actividad.setHora_fin(hora_fin);
                                 actividad.setHora_inicio(hora_inicio);
                                 actividad.setFecha_inicio_actividad(fecha_inicio_actividad);
+
                                 actividades.add(actividad);
                                 aAdapter.notifyDataSetChanged();
                             }

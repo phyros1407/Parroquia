@@ -51,8 +51,6 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
         mMapView.onCreate(mBundle);
         setUpMapIfNeeded(inflatedView);
 
-        onResume();
-
         mMapView.getMapAsync(this);
 
         return inflatedView;
