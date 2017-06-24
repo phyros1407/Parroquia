@@ -31,7 +31,7 @@ import java.util.List;
 
 public class MisasFragment extends Fragment {
 
-    private List<ParroquiaBean> listar_parroquia = new ArrayList<>();
+    public static List<ParroquiaBean> listar_parroquia = new ArrayList<>();
     private RecyclerView recyclerView;
     private ParroquiaAdapter pAdapter;
 
@@ -44,12 +44,13 @@ public class MisasFragment extends Fragment {
 
         //SETEANDO EL ADAPTER Y RECYCLER VIEW
         pAdapter = new ParroquiaAdapter(listar_parroquia);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(pAdapter);
 
-        prepareParroquiaData();
+        pAdapter.notifyDataSetChanged();
+        //prepareParroquiaData();
 
         return view;
     }
@@ -65,6 +66,8 @@ public class MisasFragment extends Fragment {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
+
+                            Log.e("respuesta --->",response.toString());
 
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonObject = response.getJSONObject(i);
@@ -84,9 +87,10 @@ public class MisasFragment extends Fragment {
                                 parroquia.setLongitud(longitud);
 
                                 listar_parroquia.add(parroquia);
-                                pAdapter.notifyDataSetChanged();
+
                             }
 
+                            pAdapter.notifyDataSetChanged();
 
                         }
                         catch (JSONException e) {

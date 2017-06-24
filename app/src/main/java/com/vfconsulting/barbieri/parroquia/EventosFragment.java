@@ -101,6 +101,7 @@ public class EventosFragment extends Fragment {
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonObject = response.getJSONObject(i);
 
+
                                 int id = jsonObject.getInt("id");
                                 String titulo = jsonObject.getString("titulo");
                                 String descripcion = jsonObject.getString("descripcion");

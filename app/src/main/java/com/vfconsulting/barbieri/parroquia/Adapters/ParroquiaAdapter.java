@@ -10,6 +10,7 @@ import com.vfconsulting.barbieri.parroquia.Beans.ActividadBean;
 import com.vfconsulting.barbieri.parroquia.Beans.ParroquiaBean;
 import com.vfconsulting.barbieri.parroquia.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class ParroquiaAdapter extends RecyclerView.Adapter<ParroquiaAdapter.MyViewHolder> {
 
-    private List<ParroquiaBean> listar_parroquias;
+    private List<ParroquiaBean> listar_parroquias = new ArrayList<>();
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -41,14 +42,16 @@ public class ParroquiaAdapter extends RecyclerView.Adapter<ParroquiaAdapter.MyVi
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.parroquia_lista, parent, false);
 
-        return new MyViewHolder(itemView);
+        MyViewHolder vh = new MyViewHolder(itemView);
+
+        return vh;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        ParroquiaBean actividad = listar_parroquias.get(position);
-        holder.nombre_parroquia.setText(actividad.getNombre());
-        holder.direccion_parroquia.setText(actividad.getDireccion());
+        ParroquiaBean parroquia = listar_parroquias.get(position);
+        holder.nombre_parroquia.setText(parroquia.getNombre());
+        holder.direccion_parroquia.setText(parroquia.getDireccion());
     }
 
 

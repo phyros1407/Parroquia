@@ -45,7 +45,9 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.MyVi
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.actividades_lista, parent, false);
 
-        return new MyViewHolder(itemView);
+        MyViewHolder vh = new MyViewHolder(itemView);
+
+        return vh;
     }
 
     @Override
