@@ -31,7 +31,7 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.MyViewHold
             super(view);
             titulo = (TextView) view.findViewById(R.id.titulo);
             fondo = (ImageView) view.findViewById(R.id.fondo);
-            parroquia = (TextView) view.findViewById(R.id.nombre_parroquia);
+            parroquia = (TextView) view.findViewById(R.id.nombre_parroquia_evento);
             fechaInicio = (TextView) view.findViewById(R.id.fecha_inicio);
         }
     }

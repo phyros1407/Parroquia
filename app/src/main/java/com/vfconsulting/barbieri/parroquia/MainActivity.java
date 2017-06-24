@@ -1,6 +1,7 @@
 package com.vfconsulting.barbieri.parroquia;
 
 
+import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -25,6 +26,7 @@ public class MainActivity  extends FragmentActivity {
         setupViewPager(viewPager);
         TabLayout tabs = (TabLayout) findViewById(R.id.tab_padre);
         tabs.setupWithViewPager(viewPager);
+        tabs.setTabTextColors(R.color.primary_light,R.color.icons);
 
     }
 

@@ -1,6 +1,7 @@
 package com.vfconsulting.barbieri.parroquia;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -40,9 +42,10 @@ public class DetalleActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detalle_activity);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_1);
-        toolbar.setNavigationIcon(R.drawable.quantum_ic_play_arrow_white_24);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        ImageView boton_atras =(ImageView) findViewById(R.id.btn_atras);
+
+        boton_atras.setImageResource(R.drawable.icons8_atr_s_100);
+        boton_atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed(); // Implemented by activity
@@ -55,7 +58,7 @@ public class DetalleActivity extends Activity{
 
         //SETEANDO EL ADAPTER Y RECYCLER VIEW
         aAdapter = new ActividadAdapter(actividades);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getApplicationContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(aAdapter);

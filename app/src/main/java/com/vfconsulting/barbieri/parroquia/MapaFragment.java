@@ -40,7 +40,6 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
     private GoogleMap mMap;
     private Bundle mBundle;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
