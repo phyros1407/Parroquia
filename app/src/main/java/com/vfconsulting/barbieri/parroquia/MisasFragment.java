@@ -32,9 +32,9 @@ import java.util.List;
 
 public class MisasFragment extends Fragment {
 
-    public  List<ParroquiaBean> listar_parroquia = new ArrayList<>();
+    public  static List<ParroquiaBean> listar_parroquia = new ArrayList<>();
     private RecyclerView recyclerView;
-    private ParroquiaAdapter pAdapter;
+    public static ParroquiaAdapter pAdapter;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,8 +55,9 @@ public class MisasFragment extends Fragment {
         pAdapter.notifyDataSetChanged();
         prepareParroquiaData();
 
+
         return view;
-    }
+}
 
 
     private void prepareParroquiaData() {
@@ -117,6 +118,5 @@ public class MisasFragment extends Fragment {
         MySingleton.getInstance(getContext()).addToRequestQueue(arrayreq);
 
     }
-
 
 }

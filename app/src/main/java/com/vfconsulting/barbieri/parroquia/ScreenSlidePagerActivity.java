@@ -13,13 +13,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.vfconsulting.barbieri.parroquia.Beans.HorarioBean;
-import com.vfconsulting.barbieri.parroquia.Beans.ParroquiaBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,6 +32,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity  {
     private ViewPager mPager;
     public List<HorarioBean> horarios = new ArrayList<>();
     private PagerAdapter mPagerAdapter;
+    public int id_parroquia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,8 @@ public class ScreenSlidePagerActivity extends FragmentActivity  {
         loadSlides(mPager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
-
-        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        id_parroquia = getIntent().getExtras().getInt("id_parroquia");
+        this.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
     }
 
@@ -66,20 +67,22 @@ public class ScreenSlidePagerActivity extends FragmentActivity  {
      */
     private void loadSlides( ViewPager viewPager){
         ScreenSlidePagerAdapter adapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(newInstance("Lunes"));
-        adapter.addFragment(newInstance("Martes"));
-        adapter.addFragment(newInstance("Miercoles"));
-        adapter.addFragment(newInstance("Jueves"));
-        adapter.addFragment(newInstance("Viernes"));
-        adapter.addFragment(newInstance("Sabado"));
-        adapter.addFragment(newInstance("Domingo"));
+
+        adapter.addFragment(newInstance("Lunes", id_parroquia));
+        adapter.addFragment(newInstance("Martes", id_parroquia));
+        adapter.addFragment(newInstance("Miercoles", id_parroquia));
+        adapter.addFragment(newInstance("Jueves", id_parroquia));
+        adapter.addFragment(newInstance("Viernes", id_parroquia));
+        adapter.addFragment(newInstance("Sabado", id_parroquia));
+        adapter.addFragment(newInstance("Domingo", id_parroquia));
 
         viewPager.setAdapter(adapter);
     }
 
-    private ScreenSlidePageFragment newInstance(String titulo){
+    private ScreenSlidePageFragment newInstance(String dia, int id_parroquia){
         Bundle bundle = new Bundle();
-        bundle.putString("titulo",titulo);
+        bundle.putString("dia",dia);
+        bundle.putInt("id_parroquia",id_parroquia);
         ScreenSlidePageFragment fragment = new ScreenSlidePageFragment();
         fragment.setArguments(bundle);
 
@@ -111,53 +114,6 @@ public class ScreenSlidePagerActivity extends FragmentActivity  {
         }
     }
 
-    public List<HorarioBean> conseguirHorarios(int id){
-
-        String url = "http://env-4981020.jelasticlw.com.br/serviciosparroquia/index.php/horarios_misa?id_parroquia=" + id;
-
-        JsonArrayRequest arrayreq = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
-
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-
-                            Log.e("respuesta --->",response.toString());
-
-                            horarios.clear();
-
-                            for (int i = 0; i < response.length(); i++) {
-
-                                JSONObject jsonObject = response.getJSONObject(i);
-
-                                HorarioBean horario = new HorarioBean();
-                                horario.setId(jsonObject.getInt("id"));
-                                horario.setId_dia(jsonObject.getInt("id_dia"));
-                                horario.setInicio_misa((Time)jsonObject.getString("inici_misa"));
-
-
-                            }
-
-
-                        }
-                        catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Volley", "Error");
-                    }
-                }
-        );
-
-        MySingleton.getInstance(this).addToRequestQueue(arrayreq);
-
-
-        return
-    }
 
 
 

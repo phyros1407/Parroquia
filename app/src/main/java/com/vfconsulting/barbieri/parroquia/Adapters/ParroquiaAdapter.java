@@ -20,7 +20,7 @@ import java.util.List;
 public class ParroquiaAdapter extends RecyclerView.Adapter<ParroquiaAdapter.MyViewHolder> {
 
     private List<ParroquiaBean> listar_parroquias = new ArrayList<>();
-
+    private  MyViewHolder vh;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nombre_parroquia;
@@ -42,7 +42,7 @@ public class ParroquiaAdapter extends RecyclerView.Adapter<ParroquiaAdapter.MyVi
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.parroquia_lista, parent, false);
 
-        MyViewHolder vh = new MyViewHolder(itemView);
+       vh = new MyViewHolder(itemView);
 
         return vh;
     }
@@ -60,8 +60,10 @@ public class ParroquiaAdapter extends RecyclerView.Adapter<ParroquiaAdapter.MyVi
         return listar_parroquias.size();
     }
 
+    public int getPostion(){
 
+        return vh.getAdapterPosition();
 
-
+    }
 
 }

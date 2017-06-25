@@ -10,8 +10,8 @@ public class HorarioBean {
 
     private int id;
     private int id_dia;
-    private Time inicio_misa;
-    private Time fin_misa;
+    private String inicio_misa;
+    private String fin_misa;
     private String tipo_misa;
     private int id_parroquia;
 
@@ -39,19 +39,19 @@ public class HorarioBean {
         this.id_dia = id_dia;
     }
 
-    public Time getInicio_misa() {
+    public String getInicio_misa() {
         return inicio_misa;
     }
 
-    public void setInicio_misa(Time inicio_misa) {
+    public void setInicio_misa(String inicio_misa) {
         this.inicio_misa = inicio_misa;
     }
 
-    public Time getFin_misa() {
+    public String getFin_misa() {
         return fin_misa;
     }
 
-    public void setFin_misa(Time fin_misa) {
+    public void setFin_misa(String fin_misa) {
         this.fin_misa = fin_misa;
     }
 

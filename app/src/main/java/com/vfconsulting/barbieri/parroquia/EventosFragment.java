@@ -61,7 +61,6 @@ public class EventosFragment extends Fragment {
 
                 EventoBean evento = listaEventos.get(position);
 
-
                 //ENVIANDO INFORMACION A DETALLE_ACTIVITY
                 Intent intent = new Intent(getContext(), DetalleActivity.class);
                 intent.putExtra("id_evento",evento.getId());
