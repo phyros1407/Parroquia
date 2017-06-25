@@ -62,8 +62,9 @@ public class MainActivity  extends FragmentActivity {
         void onLongClick(View view, int position);
     }
 
-    void abrirHorario(View v){
+    void abrirHorario(View v, int position){
         Intent intent = new Intent(this, ScreenSlidePagerActivity.class);
+        intent.putExtra("");
         startActivity(intent);
     }
     
