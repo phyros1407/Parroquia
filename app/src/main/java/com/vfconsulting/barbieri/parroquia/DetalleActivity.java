@@ -105,6 +105,8 @@ public class DetalleActivity extends Activity{
                         try {
                             Log.e("respuesta --->",response.toString());
 
+                            actividades.clear();
+
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonObject = response.getJSONObject(i);
 

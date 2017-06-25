@@ -31,7 +31,7 @@ import java.util.List;
 
 public class MisasFragment extends Fragment {
 
-    public static List<ParroquiaBean> listar_parroquia = new ArrayList<>();
+    public  List<ParroquiaBean> listar_parroquia = new ArrayList<>();
     private RecyclerView recyclerView;
     private ParroquiaAdapter pAdapter;
 
@@ -43,6 +43,8 @@ public class MisasFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.lista_reciclada_3);
 
         //SETEANDO EL ADAPTER Y RECYCLER VIEW
+        Log.e("LISTA ---> ",listar_parroquia.toString() );
+
         pAdapter = new ParroquiaAdapter(listar_parroquia);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -50,7 +52,7 @@ public class MisasFragment extends Fragment {
         recyclerView.setAdapter(pAdapter);
 
         pAdapter.notifyDataSetChanged();
-        //prepareParroquiaData();
+        prepareParroquiaData();
 
         return view;
     }
@@ -69,7 +71,12 @@ public class MisasFragment extends Fragment {
 
                             Log.e("respuesta --->",response.toString());
 
+                            listar_parroquia.clear();
+
                             for (int i = 0; i < response.length(); i++) {
+
+
+
                                 JSONObject jsonObject = response.getJSONObject(i);
 
                                 int id = jsonObject.getInt("id");

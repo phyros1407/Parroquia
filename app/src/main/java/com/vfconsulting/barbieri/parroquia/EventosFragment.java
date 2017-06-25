@@ -98,6 +98,9 @@ public class EventosFragment extends Fragment {
                     public void onResponse(JSONArray response) {
                         try {
 
+                            listaEventos.clear();
+
+
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonObject = response.getJSONObject(i);
 

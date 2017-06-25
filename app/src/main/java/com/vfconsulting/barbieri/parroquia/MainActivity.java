@@ -8,10 +8,17 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.View;
+
+import com.vfconsulting.barbieri.parroquia.Adapters.TabAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity  extends FragmentActivity {
+
+    TabLayout tabs;
+    ViewPager viewPager;
+    ArrayList<String> titulos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,55 +26,31 @@ public class MainActivity  extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        tabs = (TabLayout) findViewById(R.id.tab_padre);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+
+        titulos.add("Mapa");
+        titulos.add("Evento");
+        titulos.add("Misas");
         //  AGREGANDO A LA TABs
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+
         setupViewPager(viewPager);
-        TabLayout tabs = (TabLayout) findViewById(R.id.tab_padre);
-        tabs.setTabTextColors(R.color.primary_light,R.color.icons);
         tabs.setupWithViewPager(viewPager);
-
-
+        tabTitle();
     }
-
     //CONSTRUIR PENSTAÑAS
 
     private void setupViewPager(ViewPager viewPager) {
-        Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new MapaFragment(), "Mapa");
-        adapter.addFragment(new EventosFragment(), "Eventos");
-        adapter.addFragment(new MisasFragment(), "Misas");
+        TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
+        adapter.addFragment(new MapaFragment());
+        adapter.addFragment(new EventosFragment());
+        adapter.addFragment(new MisasFragment());
         viewPager.setAdapter(adapter);
     }
 
-    static class Adapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public Adapter(FragmentManager manager) {
-
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-
-            return mFragmentTitleList.get(position);
+    private void tabTitle(){
+        for(int i=0;i<3;i++){
+            tabs.getTabAt(i).setText(titulos.get(i));
         }
     }
 

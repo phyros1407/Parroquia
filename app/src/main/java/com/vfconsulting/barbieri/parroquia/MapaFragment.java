@@ -16,8 +16,6 @@ import android.view.ViewGroup;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
@@ -25,16 +23,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.vfconsulting.barbieri.parroquia.Beans.ParroquiaBean;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static android.location.LocationManager.GPS_PROVIDER;
-import static com.vfconsulting.barbieri.parroquia.MisasFragment.listar_parroquia;
 
 /**
  * Created by barbb on 21/06/2017.
@@ -71,7 +64,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
         //COMPROBANDO PERMISOS
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-
+/*
             LocationManager locationManager = (LocationManager)getActivity().getSystemService(getContext().LOCATION_SERVICE);
             Location myLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
             double longitude = myLocation.getLongitude();
@@ -82,7 +75,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
             CameraUpdate cameraPosition = CameraUpdateFactory.newLatLngZoom(me,15);
             mMap.moveCamera(cameraPosition);
             mMap.animateCamera(cameraPosition);
-
+*/
             mMap.setMyLocationEnabled(true);
 
         }else{
@@ -111,7 +104,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
 
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonObject = response.getJSONObject(i);
-
+/*
 
                                 int id = jsonObject.getInt("id");
                                 String nombre = jsonObject.getString("nombre");
@@ -128,7 +121,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
                                 parroquia.setLongitud(longitud);
 
                                 listar_parroquia.add(parroquia);
-
+*/
                                 LatLng parroquia_lugar = new LatLng(jsonObject.getLong("latitud"), jsonObject.getLong("longitud"));
                                 mMap.addMarker(new MarkerOptions().position(parroquia_lugar).title(jsonObject.getString("nombre")+" "+jsonObject.get("direccion")));
 
