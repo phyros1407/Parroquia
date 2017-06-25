@@ -1,5 +1,6 @@
 package com.vfconsulting.barbieri.parroquia;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -61,6 +62,9 @@ public class MainActivity  extends FragmentActivity {
         void onLongClick(View view, int position);
     }
 
-
+    void abrirHorario(View v){
+        Intent intent = new Intent(this, ScreenSlidePagerActivity.class);
+        startActivity(intent);
+    }
     
 }

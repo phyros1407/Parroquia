@@ -36,6 +36,10 @@
         </activity>
 
         <activity android:name=".DetalleActivity"></activity>
+        <activity android:name=".ScreenSlidePagerActivity"
+                  android:theme="@android:style/Theme.Dialog">
+
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
