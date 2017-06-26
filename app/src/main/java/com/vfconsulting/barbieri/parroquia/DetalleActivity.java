@@ -1,12 +1,10 @@
 package com.vfconsulting.barbieri.parroquia;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,9 +14,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.vfconsulting.barbieri.parroquia.Adapters.ActividadAdapter;
-import com.vfconsulting.barbieri.parroquia.Adapters.EventoAdapter;
 import com.vfconsulting.barbieri.parroquia.Beans.ActividadBean;
-import com.vfconsulting.barbieri.parroquia.Beans.EventoBean;
+import com.vfconsulting.barbieri.parroquia.Support.MySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;

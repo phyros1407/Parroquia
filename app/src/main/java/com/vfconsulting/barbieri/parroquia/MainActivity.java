@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.vfconsulting.barbieri.parroquia.Adapters.TabAdapter;
+import com.vfconsulting.barbieri.parroquia.Fragments.EventosFragment;
+import com.vfconsulting.barbieri.parroquia.Fragments.MapaFragment;
+import com.vfconsulting.barbieri.parroquia.Fragments.MisasFragment;
 
 import java.util.ArrayList;
 public class MainActivity  extends FragmentActivity {

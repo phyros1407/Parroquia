@@ -36,7 +36,7 @@
         </activity>
 
         <activity android:name=".DetalleActivity"></activity>
-        <activity android:name=".ScreenSlidePagerActivity"
+        <activity android:name=".HorarioActivity"
                   android:theme="@style/Theme.UserDialog">
 
         </activity>

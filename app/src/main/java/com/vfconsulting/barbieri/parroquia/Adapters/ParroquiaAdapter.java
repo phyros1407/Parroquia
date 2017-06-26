@@ -2,7 +2,6 @@ package com.vfconsulting.barbieri.parroquia.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,16 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.vfconsulting.barbieri.parroquia.Beans.ActividadBean;
 import com.vfconsulting.barbieri.parroquia.Beans.ParroquiaBean;
-import com.vfconsulting.barbieri.parroquia.MapaFragment;
 import com.vfconsulting.barbieri.parroquia.R;
-import com.vfconsulting.barbieri.parroquia.ScreenSlidePagerActivity;
+import com.vfconsulting.barbieri.parroquia.HorarioActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +47,7 @@ public class ParroquiaAdapter extends RecyclerView.Adapter<ParroquiaAdapter.MyVi
                     ParroquiaBean parroquia = listar_parroquias.get(position);
                     Log.e("parroquia", parroquia.getNombre());
                     Context context = itemView.getContext();
-                    Intent intent = new Intent(context, ScreenSlidePagerActivity.class);
+                    Intent intent = new Intent(context, HorarioActivity.class);
                     intent.putExtra("id_parroquia",parroquia.getId_Parroquia());
                     context.startActivity(intent);
                 }
