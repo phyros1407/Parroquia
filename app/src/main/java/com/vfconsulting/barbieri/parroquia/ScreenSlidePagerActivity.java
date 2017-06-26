@@ -1,14 +1,26 @@
 package com.vfconsulting.barbieri.parroquia;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.vfconsulting.barbieri.parroquia.Adapters.TabAdapter;
+import com.vfconsulting.barbieri.parroquia.Beans.HorarioBean;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,82 +30,124 @@ import java.util.List;
 
 public class ScreenSlidePagerActivity extends FragmentActivity  {
 
-    private ViewPager mPager;
-    private PagerAdapter mPagerAdapter;
-    List<Fragment> fragmentList = new ArrayList<>();
+    TabLayout tabs;
+    ViewPager mPager;
+    ArrayList<String> titulos = new ArrayList<>();
+    List<HorarioBean> horarios = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.screen_slide);
+        setContentView(R.layout.scroll_activity);
 
         // Instantiate a ViewPager and a PagerAdapter.
-        mPager = (ViewPager) findViewById(R.id.pager);
-        loadSlides(mPager);
+        mPager = (ViewPager) findViewById(R.id.viewpager2);
+        tabs = (TabLayout) this.findViewById(R.id.tab_padre);
 
-        Log.e("tamaño de fragments",String.valueOf(fragmentList.size()));
+        titulos.add("Lu");
+        titulos.add("Ma");
+        titulos.add("Mi");
+        titulos.add("Ju");
+        titulos.add("Vi");
+        titulos.add("Sa");
+        titulos.add("Do");
+        //  AGREGANDO A LA TABs
+
+        loadSlides(mPager);
+        tabs.setupWithViewPager(mPager);
+        tabTitle();
+
+        conseguirHorarios(getIntent().getExtras().getInt("id_parroquia"));
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT ,ViewGroup.LayoutParams.MATCH_PARENT);
 
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mPager.getCurrentItem() == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed();
-        } else {
-            // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }
-    }
 
     private void loadSlides( ViewPager viewPager){
 
         Log.e("id_parroquia", String.valueOf(getIntent().getExtras().getInt("id_parroquia")));
 
-        ScreenSlidePagerAdapter adapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(newInstance("Lunes", getIntent().getExtras().getInt("id_parroquia")));
-        adapter.addFragment(newInstance("Martes", getIntent().getExtras().getInt("id_parroquia")));
-        adapter.addFragment(newInstance("Miercoles", getIntent().getExtras().getInt("id_parroquia")));
-        adapter.addFragment(newInstance("Jueves", getIntent().getExtras().getInt("id_parroquia")));
-        adapter.addFragment(newInstance("Viernes", getIntent().getExtras().getInt("id_parroquia")));
-        adapter.addFragment(newInstance("Sabado", getIntent().getExtras().getInt("id_parroquia")));
-        adapter.addFragment(newInstance("Domingo", getIntent().getExtras().getInt("id_parroquia")));
+        TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
+
+        adapter.addFragment(newInstance(1,horarios));
+        adapter.addFragment(newInstance(2, horarios));
+        adapter.addFragment(newInstance(3, horarios));
+        adapter.addFragment(newInstance(4, horarios));
+        adapter.addFragment(newInstance(5, horarios));
+        adapter.addFragment(newInstance(6, horarios));
+        adapter.addFragment(newInstance(7, horarios));
 
         viewPager.setAdapter(adapter);
     }
 
-    private ScreenSlidePageFragment newInstance(String dia, int id_parroquia){
-        final Bundle bundle = new Bundle();
-        bundle.putString("dia",dia);
-        bundle.putInt("id_parroquia",id_parroquia);
+    private ScreenSlidePageFragment newInstance(int dia, List<HorarioBean> horarios){
         ScreenSlidePageFragment fragment = new ScreenSlidePageFragment();
-        Log.e("argumentos -->",bundle.toString());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("lista_horario",(Serializable) horarios);
+        bundle.putInt("dia",dia);
         fragment.setArguments(bundle);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().commit();
+
         return fragment;
     }
 
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-
-        public ScreenSlidePagerAdapter(FragmentManager fm) {
-            super(fm);
+    private void tabTitle(){
+        for(int i=0;i<7;i++){
+            tabs.getTabAt(i).setText(titulos.get(i));
         }
+    }
 
-        @Override
-        public Fragment getItem(int position) {
-            return new ScreenSlidePageFragment();
-        }
+public void conseguirHorarios(int id){
 
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
+        String url = "http://env-4981020.jelasticlw.com.br/serviciosparroquia/index.php/horarios_misa?id_parroquia=" + id;
 
-        public void addFragment(Fragment fragment){
+        JsonArrayRequest arrayreq = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
 
-            fragmentList.add(fragment);
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
 
-        }
+                            Log.e("respuesta --->",response.toString());
+
+                            horarios.clear();
+
+                            for (int i = 0; i < response.length(); i++) {
+
+                                JSONObject jsonObject = response.getJSONObject(i);
+
+                                HorarioBean horario = new HorarioBean();
+                                horario.setId(jsonObject.getInt("id"));
+                                horario.setId_dia(jsonObject.getInt("id_dia"));
+                                horario.setInicio_misa(jsonObject.getString("inicio_misa"));
+                                horario.setFin_misa(jsonObject.getString("fin_misa"));
+                                horario.setTipo_misa("Regular");
+                                horario.setId_parroquia(jsonObject.getInt("id_parroquia"));
+
+                                horarios.add(horario);
+
+
+                            }
+
+
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", "Error");
+                    }
+                }
+        );
+
+        MySingleton.getInstance(this).addToRequestQueue(arrayreq);
+
+
     }
 
 }

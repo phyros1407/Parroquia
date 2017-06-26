@@ -41,20 +41,31 @@ public class ParroquiaAdapter extends RecyclerView.Adapter<ParroquiaAdapter.MyVi
             nombre_parroquia = (TextView) view.findViewById(R.id.nombre_parroquia);
             direccion_parroquia = (TextView) view.findViewById(R.id.direccion_parroquia);
             parte_derecha_parroquia = (LinearLayout) view.findViewById(R.id.parte_derecha_parroquia);
-            parte_derecha_parroquia.setOnClickListener(this);
-            mapa_parroquia.setOnClickListener(this);
+            parte_derecha_parroquia.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    Log.e("posicion", String.valueOf(position));
+                    ParroquiaBean parroquia = listar_parroquias.get(position);
+                    Log.e("parroquia", parroquia.getNombre());
+                    Context context = itemView.getContext();
+                    Intent intent = new Intent(context, ScreenSlidePagerActivity.class);
+                    intent.putExtra("id_parroquia",parroquia.getId_Parroquia());
+                    context.startActivity(intent);
+                }
+            });
+            mapa_parroquia.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
         }
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
-            Log.e("posicion", String.valueOf(position));
-            ParroquiaBean parroquia = listar_parroquias.get(position);
-            Log.e("parroquia", parroquia.getNombre());
-            Context context = itemView.getContext();
-            Intent intent = new Intent(context, ScreenSlidePagerActivity.class);
-            intent.putExtra("id_parroquia",parroquia.getId_Parroquia());
-            context.startActivity(intent);
+
         }
     }
 
