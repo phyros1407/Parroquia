@@ -60,7 +60,7 @@ public class ParroquiaAdapter extends RecyclerView.Adapter<ParroquiaAdapter.MyVi
         return listar_parroquias.size();
     }
 
-    public int getPostion(){
+    public long getPostion(){
 
         return vh.getAdapterPosition();
 

@@ -38,10 +38,9 @@ public class ScreenSlidePageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
-        ViewGroup root_view = (ViewGroup) inflater.inflate(
-                R.layout.horarios_fragment, container, false);
+        ViewGroup root_view = (ViewGroup) inflater.inflate(R.layout.horarios_fragment, container, false);
 
-
+/*
         recyclerView = (RecyclerView) root_view.findViewById(R.id.lista_reciclada_4);
 
         if(getArguments()!=null){
@@ -80,6 +79,9 @@ public class ScreenSlidePageFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(hAdapter);
 
+        hAdapter.notifyDataSetChanged();
+
+*/
 
         return root_view;
     }

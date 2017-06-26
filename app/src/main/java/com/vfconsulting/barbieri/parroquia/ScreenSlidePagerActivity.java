@@ -6,20 +6,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.ViewGroup;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.vfconsulting.barbieri.parroquia.Beans.HorarioBean;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,7 +23,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity  {
     private ViewPager mPager;
     public List<HorarioBean> horarios = new ArrayList<>();
     private PagerAdapter mPagerAdapter;
-    public int id_parroquia;
+    public int id_parroquia = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +35,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity  {
         loadSlides(mPager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
-        id_parroquia = getIntent().getExtras().getInt("id_parroquia");
+        //id_parroquia = getIntent().getExtras().getInt("id_parroquia");
         this.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
     }
@@ -66,6 +57,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity  {
      * sequence.
      */
     private void loadSlides( ViewPager viewPager){
+
         ScreenSlidePagerAdapter adapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(newInstance("Lunes", id_parroquia));
@@ -79,11 +71,11 @@ public class ScreenSlidePagerActivity extends FragmentActivity  {
         viewPager.setAdapter(adapter);
     }
 
-    private ScreenSlidePageFragment newInstance(String dia, int id_parroquia){
+    private Fragment newInstance(String dia, int id_parroquia){
         Bundle bundle = new Bundle();
         bundle.putString("dia",dia);
         bundle.putInt("id_parroquia",id_parroquia);
-        ScreenSlidePageFragment fragment = new ScreenSlidePageFragment();
+        Fragment fragment = new Fragment();
         fragment.setArguments(bundle);
 
         return fragment;
@@ -104,7 +96,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity  {
 
         @Override
         public int getCount() {
-            return NUM_PAGES;
+            return fragmentList.size();
         }
 
         public void addFragment(Fragment fragment){
@@ -113,9 +105,5 @@ public class ScreenSlidePagerActivity extends FragmentActivity  {
 
         }
     }
-
-
-
-
 
 }

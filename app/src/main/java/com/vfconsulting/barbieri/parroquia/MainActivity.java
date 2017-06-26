@@ -64,12 +64,13 @@ public class MainActivity  extends FragmentActivity {
 
     void abrirHorario(View view){
 
-        int posicion = pAdapter.getPostion();
+        int posicion = (int) pAdapter.getPostion();
 
         Intent intent = new Intent(this, ScreenSlidePagerActivity.class);
         Log.e("posicion ---->" , Integer.toString(posicion));
         int id_parroquia = listar_parroquia.get(posicion).getId_Parroquia();
-        intent.putExtra("id_parroquia",id_parroquia);
+        intent.putExtra("id_parroquia",1);
+
         startActivity(intent);
     }
 
