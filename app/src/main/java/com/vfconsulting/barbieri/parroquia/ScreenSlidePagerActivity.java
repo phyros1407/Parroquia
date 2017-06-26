@@ -1,14 +1,11 @@
 package com.vfconsulting.barbieri.parroquia;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -58,7 +55,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity  {
         tabTitle();
 
         conseguirHorarios(getIntent().getExtras().getInt("id_parroquia"));
-        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT ,ViewGroup.LayoutParams.MATCH_PARENT);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT ,1500);
 
     }
 

@@ -16,11 +16,15 @@ import android.view.ViewGroup;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -39,11 +43,12 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
     private GoogleMap mMap;
     private Bundle mBundle;
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1 ;
+    View inflatedView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View inflatedView = inflater.inflate(R.layout.mapa_fragment, container, false);
+        inflatedView= inflater.inflate(R.layout.mapa_fragment, container, false);
 
 
         MapsInitializer.initialize(getActivity());
@@ -51,8 +56,11 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
         mMapView = (MapView) inflatedView.findViewById(R.id.map);
         mMapView.onCreate(mBundle);
         setUpMapIfNeeded(inflatedView);
-
+        onResume();
         mMapView.getMapAsync(this);
+
+
+
 
         return inflatedView;
     }
@@ -64,7 +72,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
         //COMPROBANDO PERMISOS
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-/*
+
             LocationManager locationManager = (LocationManager)getActivity().getSystemService(getContext().LOCATION_SERVICE);
             Location myLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
             double longitude = myLocation.getLongitude();
@@ -75,8 +83,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
             CameraUpdate cameraPosition = CameraUpdateFactory.newLatLngZoom(me,15);
             mMap.moveCamera(cameraPosition);
             mMap.animateCamera(cameraPosition);
-*/
-            mMap.setMyLocationEnabled(true);
+
 
         }else{
             ActivityCompat.requestPermissions(getActivity(),
@@ -85,7 +92,8 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
 
         }
 
-        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.setBuildingsEnabled(true);
 
         UiSettings uiSettings = mMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
@@ -104,24 +112,6 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
 
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonObject = response.getJSONObject(i);
-/*
-
-                                int id = jsonObject.getInt("id");
-                                String nombre = jsonObject.getString("nombre");
-                                String direccion = jsonObject.getString("direccion");
-                                double latitud = jsonObject.getDouble("latitud");
-                                double longitud = jsonObject.getDouble("longitud");
-
-
-                                ParroquiaBean parroquia = new ParroquiaBean();
-                                parroquia.setId_Parroquia(id);
-                                parroquia.setNombre(nombre);
-                                parroquia.setDireccion(direccion);
-                                parroquia.setLatitud(latitud);
-                                parroquia.setLongitud(longitud);
-
-                                listar_parroquia.add(parroquia);
-*/
                                 LatLng parroquia_lugar = new LatLng(jsonObject.getLong("latitud"), jsonObject.getLong("longitud"));
                                 mMap.addMarker(new MarkerOptions().position(parroquia_lugar).title(jsonObject.getString("nombre")+" "+jsonObject.get("direccion")));
 
@@ -146,7 +136,24 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback{
         MySingleton.getInstance(getContext()).addToRequestQueue(arrayreq);
     }
 
+   /* public void irPosicion(double lat,double lon){
 
+
+        LatLng me = new LatLng(lat,lon);
+        Log.e("latitues",String.valueOf(lat));
+        Log.e("latitues",String.valueOf(lon));
+
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(me)      // Sets the center of the map to Mountain View
+                .zoom(15)                   // Sets the zoom
+                .bearing(90)                // Sets the orientation of the camera to east
+                .tilt(30)                   // Sets the tilt of the camera to 30 degrees
+                .build();                   // Creates a CameraPosition from the builder
+
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+    }
+*/
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

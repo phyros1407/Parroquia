@@ -12,8 +12,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.vfconsulting.barbieri.parroquia.Beans.ActividadBean;
 import com.vfconsulting.barbieri.parroquia.Beans.ParroquiaBean;
+import com.vfconsulting.barbieri.parroquia.MapaFragment;
 import com.vfconsulting.barbieri.parroquia.R;
 import com.vfconsulting.barbieri.parroquia.ScreenSlidePagerActivity;
 
@@ -57,6 +63,14 @@ public class ParroquiaAdapter extends RecyclerView.Adapter<ParroquiaAdapter.MyVi
             mapa_parroquia.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    /*int position = getAdapterPosition();
+
+                    ParroquiaBean parroquia = listar_parroquias.get(position);
+
+                    MapaFragment m  = new MapaFragment();
+
+                    m.irPosicion(parroquia.getLatitud(),parroquia.getLongitud());*/
 
                 }
             });
