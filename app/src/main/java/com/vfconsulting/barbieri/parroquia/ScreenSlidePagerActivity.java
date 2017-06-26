@@ -6,10 +6,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
-
-import com.vfconsulting.barbieri.parroquia.Beans.HorarioBean;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +18,9 @@ import java.util.List;
 
 public class ScreenSlidePagerActivity extends FragmentActivity  {
 
-    private static final int NUM_PAGES = 7;
     private ViewPager mPager;
-    public List<HorarioBean> horarios = new ArrayList<>();
     private PagerAdapter mPagerAdapter;
-    public int id_parroquia = 1;
-
+    List<Fragment> fragmentList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +29,9 @@ public class ScreenSlidePagerActivity extends FragmentActivity  {
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         loadSlides(mPager);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(mPagerAdapter);
-        //id_parroquia = getIntent().getExtras().getInt("id_parroquia");
-        this.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        Log.e("tamaño de fragments",String.valueOf(fragmentList.size()));
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT ,ViewGroup.LayoutParams.MATCH_PARENT);
 
     }
 
@@ -52,38 +47,33 @@ public class ScreenSlidePagerActivity extends FragmentActivity  {
         }
     }
 
-    /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
-     */
     private void loadSlides( ViewPager viewPager){
 
-        ScreenSlidePagerAdapter adapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        Log.e("id_parroquia", String.valueOf(getIntent().getExtras().getInt("id_parroquia")));
 
-        adapter.addFragment(newInstance("Lunes", id_parroquia));
-        adapter.addFragment(newInstance("Martes", id_parroquia));
-        adapter.addFragment(newInstance("Miercoles", id_parroquia));
-        adapter.addFragment(newInstance("Jueves", id_parroquia));
-        adapter.addFragment(newInstance("Viernes", id_parroquia));
-        adapter.addFragment(newInstance("Sabado", id_parroquia));
-        adapter.addFragment(newInstance("Domingo", id_parroquia));
+        ScreenSlidePagerAdapter adapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(newInstance("Lunes", getIntent().getExtras().getInt("id_parroquia")));
+        adapter.addFragment(newInstance("Martes", getIntent().getExtras().getInt("id_parroquia")));
+        adapter.addFragment(newInstance("Miercoles", getIntent().getExtras().getInt("id_parroquia")));
+        adapter.addFragment(newInstance("Jueves", getIntent().getExtras().getInt("id_parroquia")));
+        adapter.addFragment(newInstance("Viernes", getIntent().getExtras().getInt("id_parroquia")));
+        adapter.addFragment(newInstance("Sabado", getIntent().getExtras().getInt("id_parroquia")));
+        adapter.addFragment(newInstance("Domingo", getIntent().getExtras().getInt("id_parroquia")));
 
         viewPager.setAdapter(adapter);
     }
 
-    private Fragment newInstance(String dia, int id_parroquia){
-        Bundle bundle = new Bundle();
+    private ScreenSlidePageFragment newInstance(String dia, int id_parroquia){
+        final Bundle bundle = new Bundle();
         bundle.putString("dia",dia);
         bundle.putInt("id_parroquia",id_parroquia);
-        Fragment fragment = new Fragment();
+        ScreenSlidePageFragment fragment = new ScreenSlidePageFragment();
+        Log.e("argumentos -->",bundle.toString());
         fragment.setArguments(bundle);
-
         return fragment;
     }
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-
-        List<Fragment> fragmentList = new ArrayList<>();
 
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);

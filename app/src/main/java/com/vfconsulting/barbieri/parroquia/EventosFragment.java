@@ -54,7 +54,8 @@ public class EventosFragment extends Fragment {
         prepareEventosData();
 
 
-        //EVENTOS CLICK
+        //EVENTOS CLICk
+
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new MainActivity.ClickListener() {
             @Override
             public void onClick(View view, int position) {

@@ -1,20 +1,14 @@
 package com.vfconsulting.barbieri.parroquia;
 
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.vfconsulting.barbieri.parroquia.Adapters.TabAdapter;
 
 import java.util.ArrayList;
-
-import static com.vfconsulting.barbieri.parroquia.MisasFragment.listar_parroquia;
-import static com.vfconsulting.barbieri.parroquia.MisasFragment.pAdapter;
-
 public class MainActivity  extends FragmentActivity {
 
     TabLayout tabs;
@@ -60,18 +54,6 @@ public class MainActivity  extends FragmentActivity {
         void onClick(View view, int position);
 
         void onLongClick(View view, int position);
-    }
-
-    void abrirHorario(View view){
-
-        int posicion = (int) pAdapter.getPostion();
-
-        Intent intent = new Intent(this, ScreenSlidePagerActivity.class);
-        Log.e("posicion ---->" , Integer.toString(posicion));
-        int id_parroquia = listar_parroquia.get(posicion).getId_Parroquia();
-        intent.putExtra("id_parroquia",1);
-
-        startActivity(intent);
     }
 
 

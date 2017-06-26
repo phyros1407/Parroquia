@@ -1,6 +1,7 @@
 package com.vfconsulting.barbieri.parroquia;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,13 +35,13 @@ public class ScreenSlidePageFragment extends Fragment {
     List<HorarioBean> horario_dia = new ArrayList<>();
     private RecyclerView recyclerView;
     private HorarioAdapter hAdapter;
-
+    @Nullable
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
         ViewGroup root_view = (ViewGroup) inflater.inflate(R.layout.horarios_fragment, container, false);
 
-/*
         recyclerView = (RecyclerView) root_view.findViewById(R.id.lista_reciclada_4);
 
         if(getArguments()!=null){
@@ -48,6 +49,7 @@ public class ScreenSlidePageFragment extends Fragment {
             int id_dia = obtenerIdDia(getArguments().getString("dia"));
             conseguirHorarios(getArguments().getInt("id_parroquia"));
 
+            Log.e("HORARIOS CARGADOS",horarios.toString());
 
             for(int i = 0;i<horarios.size();i++){
 
@@ -81,7 +83,7 @@ public class ScreenSlidePageFragment extends Fragment {
 
         hAdapter.notifyDataSetChanged();
 
-*/
+
 
         return root_view;
     }

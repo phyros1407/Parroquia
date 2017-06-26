@@ -16,17 +16,18 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/mapa_parroquia"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:src="@drawable/icons8_marcador_de_mapa_100"/>
 
         <LinearLayout
+            android:id="@+id/parte_derecha_parroquia"
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            android:onClick="abrirHorario"
             >
 
             <TextView

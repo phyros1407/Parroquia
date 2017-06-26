@@ -1,14 +1,21 @@
 package com.vfconsulting.barbieri.parroquia.Adapters;
 
+import android.content.Context;
+import android.content.Intent;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.vfconsulting.barbieri.parroquia.Beans.ActividadBean;
 import com.vfconsulting.barbieri.parroquia.Beans.ParroquiaBean;
 import com.vfconsulting.barbieri.parroquia.R;
+import com.vfconsulting.barbieri.parroquia.ScreenSlidePagerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +29,32 @@ public class ParroquiaAdapter extends RecyclerView.Adapter<ParroquiaAdapter.MyVi
     private List<ParroquiaBean> listar_parroquias = new ArrayList<>();
     private  MyViewHolder vh;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView nombre_parroquia;
         public TextView direccion_parroquia;
+        public LinearLayout parte_derecha_parroquia;
+        public ImageView mapa_parroquia;
 
         public MyViewHolder(View view) {
             super(view);
+            mapa_parroquia = (ImageView) view.findViewById(R.id.mapa_parroquia);
             nombre_parroquia = (TextView) view.findViewById(R.id.nombre_parroquia);
             direccion_parroquia = (TextView) view.findViewById(R.id.direccion_parroquia);
+            parte_derecha_parroquia = (LinearLayout) view.findViewById(R.id.parte_derecha_parroquia);
+            parte_derecha_parroquia.setOnClickListener(this);
+            mapa_parroquia.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            Log.e("posicion", String.valueOf(position));
+            ParroquiaBean parroquia = listar_parroquias.get(position);
+            Log.e("parroquia", parroquia.getNombre());
+            Context context = itemView.getContext();
+            Intent intent = new Intent(context, ScreenSlidePagerActivity.class);
+            intent.putExtra("id_parroquia",parroquia.getId_Parroquia());
+            context.startActivity(intent);
         }
     }
 
@@ -60,10 +85,5 @@ public class ParroquiaAdapter extends RecyclerView.Adapter<ParroquiaAdapter.MyVi
         return listar_parroquias.size();
     }
 
-    public long getPostion(){
-
-        return vh.getAdapterPosition();
-
-    }
 
 }
