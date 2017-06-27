@@ -1,6 +1,7 @@
 package com.vfconsulting.barbieri.parroquia.Fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,11 +35,12 @@ public class MisasFragment extends Fragment {
     public  static List<ParroquiaBean> listar_parroquia = new ArrayList<>();
     private RecyclerView recyclerView;
     public static ParroquiaAdapter pAdapter;
+    private View view;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.misas_fragment, container, false);
+        view = inflater.inflate(R.layout.misas_fragment, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.lista_reciclada_3);
 
@@ -103,6 +105,7 @@ public class MisasFragment extends Fragment {
                         }
                         catch (JSONException e) {
                             e.printStackTrace();
+                            Snackbar.make(view, "OCCURRIÓ UN PROBLEMA, INTENTE MAS TARDE", Snackbar.LENGTH_LONG).show();
                         }
                     }
                 },

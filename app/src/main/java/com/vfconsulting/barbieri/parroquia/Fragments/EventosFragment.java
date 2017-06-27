@@ -3,6 +3,7 @@ package com.vfconsulting.barbieri.parroquia.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,11 +41,11 @@ public class EventosFragment extends Fragment {
     private List<EventoBean> listaEventos = new ArrayList<>();
     private RecyclerView recyclerView;
     private EventoAdapter eAdapter;
-
+    private View view;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.eventos_fragment, container, false);
+        view = inflater.inflate(R.layout.eventos_fragment, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.lista_reciclada);
 
@@ -131,6 +132,7 @@ public class EventosFragment extends Fragment {
                         }
                         catch (JSONException e) {
                             e.printStackTrace();
+                            Snackbar.make(view, "OCCURRIÓ UN PROBLEMA, INTENTE MAS TARDE", Snackbar.LENGTH_LONG).show();
                         }
                     }
                 },

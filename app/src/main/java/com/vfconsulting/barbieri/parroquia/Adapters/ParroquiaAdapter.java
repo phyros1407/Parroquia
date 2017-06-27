@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.vfconsulting.barbieri.parroquia.Beans.ParroquiaBean;
+import com.vfconsulting.barbieri.parroquia.Fragments.MapaFragment;
 import com.vfconsulting.barbieri.parroquia.R;
 import com.vfconsulting.barbieri.parroquia.HorarioActivity;
 
@@ -56,13 +57,14 @@ public class ParroquiaAdapter extends RecyclerView.Adapter<ParroquiaAdapter.MyVi
                 @Override
                 public void onClick(View v) {
 
-                    /*int position = getAdapterPosition();
+                    int position = getAdapterPosition();
 
                     ParroquiaBean parroquia = listar_parroquias.get(position);
 
                     MapaFragment m  = new MapaFragment();
 
-                    m.irPosicion(parroquia.getLatitud(),parroquia.getLongitud());*/
+                    m.irPosicion(parroquia.getLatitud(),parroquia.getLongitud());
+
 
                 }
             });

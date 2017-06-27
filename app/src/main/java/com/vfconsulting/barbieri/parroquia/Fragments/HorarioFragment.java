@@ -2,6 +2,7 @@ package com.vfconsulting.barbieri.parroquia.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,12 +37,14 @@ public class HorarioFragment extends Fragment {
     List<HorarioBean> horario_dia = new ArrayList<>();
     private RecyclerView recyclerView;
     private HorarioAdapter hAdapter;
+    private  ViewGroup root_view;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
-        ViewGroup root_view = (ViewGroup) inflater.inflate(R.layout.horarios_fragment, container, false);
+        root_view = (ViewGroup) inflater.inflate(R.layout.horarios_fragment, container, false);
 
         recyclerView = (RecyclerView) root_view.findViewById(R.id.lista_reciclada_4);
 
@@ -103,6 +106,7 @@ public class HorarioFragment extends Fragment {
                         }
                         catch (JSONException e) {
                             e.printStackTrace();
+                            Snackbar.make(root_view, "OCCURRIÓ UN PROBLEMA, INTENTE MAS TARDE", Snackbar.LENGTH_LONG).show();
                         }
                     }
                 },

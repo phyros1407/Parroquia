@@ -2,6 +2,7 @@ package com.vfconsulting.barbieri.parroquia;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,6 +39,7 @@ public class DetalleActivity extends Activity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detalle_activity);
+
 
         ImageView boton_atras =(ImageView) findViewById(R.id.btn_atras);
 
@@ -133,6 +135,8 @@ public class DetalleActivity extends Activity{
                         }
                         catch (JSONException e) {
                             e.printStackTrace();
+
+                            Snackbar.make(findViewById(android.R.id.content), "OCCURRIÓ UN PROBLEMA, INTENTE MAS TARDE", Snackbar.LENGTH_LONG).show();
                         }
                     }
                 },
