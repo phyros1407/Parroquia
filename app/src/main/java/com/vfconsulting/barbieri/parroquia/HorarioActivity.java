@@ -5,7 +5,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.vfconsulting.barbieri.parroquia.Adapters.TabAdapter;
 import com.vfconsulting.barbieri.parroquia.Fragments.HorarioFragment;
@@ -45,6 +47,16 @@ public class HorarioActivity extends FragmentActivity  {
         tabTitle();
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT ,1500);
 
+        Button btn_aceptar = (Button)findViewById(R.id.btn_ok);
+
+        btn_aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Implemented by activity
+            }
+        });
+
+
     }
 
 
@@ -83,6 +95,5 @@ public class HorarioActivity extends FragmentActivity  {
             tabs.getTabAt(i).setText(titulos.get(i));
         }
     }
-
 
 }

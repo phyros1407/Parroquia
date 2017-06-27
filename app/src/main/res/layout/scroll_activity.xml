@@ -28,6 +28,7 @@
 
         <Button
             android:id="@+id/btn_ok"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -35,9 +36,9 @@
             android:layout_marginRight="8dp"
             android:background="@color/icons"
             android:elevation="0dp"
+            android:onClick="cerrarDialog"
             android:text="@string/btn_aceptar"
-            android:textColor="@color/accent"
-            style="?android:attr/borderlessButtonStyle"/>
+            android:textColor="@color/accent" />
 
     </LinearLayout>
 </LinearLayout>
