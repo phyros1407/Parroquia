@@ -57,13 +57,6 @@ public class ParroquiaAdapter extends RecyclerView.Adapter<ParroquiaAdapter.MyVi
                 @Override
                 public void onClick(View v) {
 
-                    int position = getAdapterPosition();
-
-                    ParroquiaBean parroquia = listar_parroquias.get(position);
-
-                    MapaFragment m  = new MapaFragment();
-
-                    m.irPosicion(parroquia.getLatitud(),parroquia.getLongitud());
 
 
                 }
