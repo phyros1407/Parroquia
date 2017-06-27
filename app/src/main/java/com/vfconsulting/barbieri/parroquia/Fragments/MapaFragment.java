@@ -7,7 +7,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,9 +17,7 @@ import android.view.ViewGroup;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.google.android.gms.location.FusedLocationProviderClient;
 import android.location.LocationListener;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -43,6 +40,7 @@ import org.json.JSONObject;
 
 public class MapaFragment extends Fragment implements OnMapReadyCallback {
 
+    private final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
     private MapView mMapView;
     private static GoogleMap mMap;
     private Bundle mBundle;
@@ -63,8 +61,6 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
         setUpMapIfNeeded(inflatedView);
 
 
-        final FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-
         mMapView.getMapAsync(this);
 
 
@@ -77,7 +73,6 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
         miUbicacion();
 
-
     }
 
     private void agregarMarcador(double lat, double log) {
@@ -87,8 +82,12 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
         if (marcador != null) {
             marcador.remove();
         }
-        marcador = mMap.addMarker(new MarkerOptions()
+
+        if(!(mMap.isMyLocationEnabled())){
+             marcador = mMap.addMarker(new MarkerOptions()
                 .position(cordenadas).title("Mi posición").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
+
+        }
         mMap.animateCamera(miUbicacion);
     }
 
@@ -129,40 +128,19 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            return;
+            ActivityCompat.requestPermissions(getActivity(),
+            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+            REQUEST_PERMISSIONS_REQUEST_CODE);
         }
 
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
         actualizarUbicacion(location);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 15000, 0, loListener);
+        locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 15000, 0, loListener);
+
+        mMap.setMyLocationEnabled(true);
     }
 
-
-
-
-/*
-    public void irPosicion(double lat, double lon) {
-
-        TabLayout tabs = (TabLayout)inflatedView.findViewById(R.id.tab_padre);
-
-        tabs.getTabAt(0).select();
-
-        LatLng me = new LatLng(lat, lon);
-        Log.e("latitues", String.valueOf(lat));
-        Log.e("latitues", String.valueOf(lon));
-
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(me)      // Sets the center of the map to Mountain View
-                .zoom(15)                   // Sets the zoom
-                .bearing(90)                // Sets the orientation of the camera to east
-                .tilt(30)                   // Sets the tilt of the camera to 30 degrees
-                .build();                   // Creates a CameraPosition from the builder
-
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-    }
-*/
 
 
     @Override
