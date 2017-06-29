@@ -16,4 +16,13 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.FloatingLabel" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:textSize">15dp</item>
+    </style>
+
+    <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
 </resources>

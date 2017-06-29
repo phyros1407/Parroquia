@@ -7,8 +7,11 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import android.location.LocationListener;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,12 +34,16 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.vfconsulting.barbieri.parroquia.Beans.ParroquiaBean;
 import com.vfconsulting.barbieri.parroquia.Support.MySingleton;
 import com.vfconsulting.barbieri.parroquia.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by barbb on 21/06/2017.
@@ -48,6 +59,11 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
     private double lat;
     private double log;
     View inflatedView;
+    EditText buscador;
+    ListView lv;
+    int textLen = 0;
+    private ArrayList<String> array_sort = new ArrayList<String>();
+    private List<ParroquiaBean> parroquias = new ArrayList<>();
 
     private static final String TAG = MapaFragment.class.getSimpleName();
 
@@ -59,9 +75,44 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
         mMapView = (MapView) inflatedView.findViewById(R.id.map);
         mMapView.onCreate(mBundle);
         setUpMapIfNeeded(inflatedView);
-
+        setUpMap();
 
         mMapView.getMapAsync(this);
+
+        buscador = (EditText) inflatedView.findViewById(R.id.masked);
+        lv = (ListView) inflatedView.findViewById(R.id.ListView01);
+
+        lv.setAdapter(new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_list_item_1));
+
+        buscador.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                lv.setAdapter(null);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                textLen = buscador.getText().length();
+                array_sort.clear();
+
+                for (int i = 0; i < parroquias.size(); i++) {
+                    if (textLen <= parroquias.get(i).getNombre().length()) {
+                        if (buscador.getText().toString().equalsIgnoreCase((String) parroquias.get(i).getNombre().subSequence(0, textLen))) {
+                            array_sort.add(parroquias.get(i).getNombre());
+                        }
+                    }
+                }
+
+                lv.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, array_sort));
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
 
         return inflatedView;
@@ -72,6 +123,16 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
 
         mMap = googleMap;
         miUbicacion();
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                LatLng posicion = marker.getPosition();
+                CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(posicion, 16);
+                mMap.animateCamera(miUbicacion);
+                return true;
+            }
+        });
+
 
     }
 
@@ -175,10 +236,24 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
 
                             Log.e("respuesta --->", response.toString());
 
+                            parroquias.clear();
+
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonObject = response.getJSONObject(i);
+
+                                ParroquiaBean parroquia = new ParroquiaBean();
+                                parroquia.setNombre(jsonObject.getString("nombre"));
+                                parroquia.setDireccion(jsonObject.getString("direccion"));
+                                parroquia.setLongitud(jsonObject.getLong("longitud"));
+                                parroquia.setLatitud(jsonObject.getLong("latitud"));
+
                                 LatLng parroquia_lugar = new LatLng(jsonObject.getLong("latitud"), jsonObject.getLong("longitud"));
-                                mMap.addMarker(new MarkerOptions().position(parroquia_lugar).title(jsonObject.getString("nombre") + " " + jsonObject.get("direccion")));
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(parroquia_lugar)
+                                        .title(jsonObject.getString("nombre") + " " + jsonObject.get("direccion"))
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icono_iglesia_mini)));
+
+                                parroquias.add(parroquia);
 
                             }
 

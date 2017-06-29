@@ -27,9 +27,9 @@ public class MainActivity  extends FragmentActivity {
         tabs = (TabLayout) findViewById(R.id.tab_padre);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        titulos.add("Mapa");
         titulos.add("Evento");
         titulos.add("Misas");
+        titulos.add("Mapa");
         //  AGREGANDO A LA TABs
 
         setupViewPager(viewPager);
@@ -40,9 +40,9 @@ public class MainActivity  extends FragmentActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new MapaFragment());
         adapter.addFragment(new EventosFragment());
         adapter.addFragment(new MisasFragment());
+        adapter.addFragment(new MapaFragment());
         viewPager.setAdapter(adapter);
     }
 

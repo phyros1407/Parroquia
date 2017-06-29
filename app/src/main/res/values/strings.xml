@@ -12,4 +12,6 @@
     <string name="btn_aceptar">ACEPTAR</string>
     <string name="permission_rationale">PERMISOS</string>
     <string name="no_location_detected">NO SE DETECTO SU LOCALIZACIÓN</string>
+
+    <string name="buscador">Iglesias o parroquias</string>
 </resources>

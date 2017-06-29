@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.vfconsulting.barbieri.parroquia.Beans.ParroquiaBean;
@@ -91,11 +93,9 @@ public class ParroquiaAdapter extends RecyclerView.Adapter<ParroquiaAdapter.MyVi
         holder.direccion_parroquia.setText(parroquia.getDireccion());
     }
 
-
     @Override
     public int getItemCount() {
         return listar_parroquias.size();
     }
-
 
 }

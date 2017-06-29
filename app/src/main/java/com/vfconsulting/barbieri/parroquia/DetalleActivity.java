@@ -44,6 +44,7 @@ public class DetalleActivity extends Activity{
         ImageView boton_atras =(ImageView) findViewById(R.id.btn_atras);
 
         boton_atras.setImageResource(R.drawable.icons8_atr_s_100);
+        boton_atras.setMaxHeight(15);
         boton_atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
