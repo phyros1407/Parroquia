@@ -20,9 +20,9 @@
     -->
     <application
         android:allowBackup="true"
-        android:icon="@drawable/icono_parroquia"
+        android:icon="@drawable/logo_parroquia"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/icono_parroquia"
+        android:roundIcon="@drawable/logo_parroquia"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 

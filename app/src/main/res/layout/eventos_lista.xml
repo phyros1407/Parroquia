@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="165dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/evento_catolico"/>
+                android:background="@drawable/logo_congreso"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -66,14 +66,15 @@
 
                     <TextView
                         android:id="@+id/fecha_inicio"
-                        android:layout_marginTop="25dp"
+                        android:layout_marginTop="15dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="15dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+
                         android:textColor="@color/primary_text"
                         android:textSize="18dp"
                         android:text="27 JUN"
+
                         />
 
                 </LinearLayout>

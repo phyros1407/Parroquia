@@ -31,8 +31,8 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.MyVi
         public MyViewHolder(View view) {
             super(view);
             titulo = (TextView) view.findViewById(R.id.titulo_actividad);
-            hora_inicio = (TextView) view.findViewById(R.id.hora_inicio);
-            hora_fin = (TextView) view.findViewById(R.id.hora_fin);
+            /*hora_inicio = (TextView) view.findViewById(R.id.hora_inicio);
+            hora_fin = (TextView) view.findViewById(R.id.hora_fin);*/
             fecha_inicio = (TextView) view.findViewById(R.id.fecha_inicio_actividad);
         }
     }
@@ -60,8 +60,8 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.MyVi
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ActividadBean actividad = listarActividades.get(position);
         holder.titulo.setText(actividad.getTitulo());
-        holder.hora_inicio.setText(actividad.getHora_inicio());
-        holder.hora_fin.setText(actividad.getHora_fin());
+       /* holder.hora_inicio.setText(actividad.getHora_inicio());
+        holder.hora_fin.setText(actividad.getHora_fin());*/
         holder.fecha_inicio.setText(actividad.getFecha_inicio_actividad());
         // holder.fondo.setImageResource(evento.));
     }

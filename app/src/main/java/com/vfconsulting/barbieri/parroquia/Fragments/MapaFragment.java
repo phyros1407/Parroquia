@@ -7,11 +7,8 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +18,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import android.location.LocationListener;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -30,6 +26,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -62,6 +59,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
     EditText buscador;
     ListView lv;
     int textLen = 0;
+    private UiSettings mUiSettings;
     private ArrayList<String> array_sort = new ArrayList<String>();
     private List<ParroquiaBean> parroquias = new ArrayList<>();
 
@@ -80,12 +78,12 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
         mMapView.getMapAsync(this);
 
         buscador = (EditText) inflatedView.findViewById(R.id.masked);
-        lv = (ListView) inflatedView.findViewById(R.id.ListView01);
+        //lv = (ListView) inflatedView.findViewById(R.id.ListView01);
 
-        lv.setAdapter(new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_list_item_1));
+        /*lv.setAdapter(new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_list_item_1));*/
 
-        buscador.addTextChangedListener(new TextWatcher() {
+       /* buscador.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 lv.setAdapter(null);
@@ -112,7 +110,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
 
 
         return inflatedView;
@@ -123,6 +121,8 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
 
         mMap = googleMap;
         miUbicacion();
+        mUiSettings=mMap.getUiSettings();
+        mUiSettings.setZoomControlsEnabled(true);
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -225,7 +225,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
 
     private void setUpMap() {
 
-        String url = "http://env-4981020.jelasticlw.com.br/serviciosparroquia/index.php/parroquia";
+        String url = "http://env-1201049.jelasticlw.com.br/serviciosparroquia/index.php/parroquia";
 
         JsonArrayRequest arrayreq = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
@@ -251,7 +251,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
                                 mMap.addMarker(new MarkerOptions()
                                         .position(parroquia_lugar)
                                         .title(jsonObject.getString("nombre") + " " + jsonObject.get("direccion"))
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icono_iglesia_mini)));
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icono_iglesia_1)));
 
                                 parroquias.add(parroquia);
 

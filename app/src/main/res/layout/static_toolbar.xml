@@ -19,7 +19,7 @@
                 android:layout_height="25dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:src="@drawable/icono_parroquia"/>
+                android:src="@drawable/logo_parroquia"/>
 
             <TextView
                 android:id="@+id/titulo_app"
@@ -28,7 +28,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:textSize="22dp"
-                android:text="@string/titulo_app"
+                android:text="@string/app_name"
                 android:gravity="center_vertical"
                 android:textColor="@color/icons"/>
 

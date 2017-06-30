@@ -95,7 +95,7 @@ public class DetalleActivity extends Activity{
 
         int id = getIntent().getExtras().getInt("id_evento");
 
-        String url = "http://env-4981020.jelasticlw.com.br/serviciosparroquia/index.php/actividades?id_evento="+id;
+        String url = "http://env-1201049.jelasticlw.com.br/serviciosparroquia/index.php/actividades?id_evento="+id;
 
         JsonArrayRequest arrayreq = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
@@ -114,8 +114,8 @@ public class DetalleActivity extends Activity{
 
                                 String titulo = jsonObject.getString("titulo");
                                 String descripcion = jsonObject.getString("descripcion");
-                                String hora_inicio = jsonObject.getString("hora_inicio_actividad");
-                                String hora_fin = jsonObject.getString("hora_fin_actividad");
+                                /*String hora_inicio = jsonObject.getString("hora_inicio_actividad");
+                                String hora_fin = jsonObject.getString("hora_fin_actividad");*/
                                 String fecha_inicio_actividad = jsonObject.getString("fecha_inicio_actividad");
 
 
@@ -124,8 +124,8 @@ public class DetalleActivity extends Activity{
 
                                 actividad.setTitulo(titulo);
                                 actividad.setDescripcion(descripcion);
-                                actividad.setHora_fin(hora_fin);
-                                actividad.setHora_inicio(hora_inicio);
+                                /*actividad.setHora_fin(hora_fin);
+                                actividad.setHora_inicio(hora_inicio);*/
                                 actividad.setFecha_inicio_actividad(fecha_inicio_actividad);
 
                                 actividades.add(actividad);
