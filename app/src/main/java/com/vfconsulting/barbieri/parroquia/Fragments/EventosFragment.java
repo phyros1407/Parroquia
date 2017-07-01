@@ -58,7 +58,6 @@ public class EventosFragment extends Fragment {
 
         prepareEventosData();
 
-
         //EVENTOS CLICk
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new MainActivity.ClickListener() {
@@ -77,7 +76,7 @@ public class EventosFragment extends Fragment {
                 intent.putExtra("descripcion_evento",evento.getDescripcion());
                 startActivity(intent);
 
-                Toast.makeText(getContext(), evento.getTitulo() + " is selected!"+evento.getId(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), evento.getTitulo() + " is selected!"+evento.getId(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -89,7 +88,6 @@ public class EventosFragment extends Fragment {
 
         return view;
     }
-
 
     //CARGANDO DATOS CON VOLLEY
     private void prepareEventosData() {
@@ -148,6 +146,7 @@ public class EventosFragment extends Fragment {
 
 
     }
+
 
 
 

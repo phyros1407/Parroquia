@@ -50,7 +50,6 @@ public class SplashScreenActivity extends Activity {
                 // Start the next activity
                 Intent mainIntent = new Intent().setClass(
                         SplashScreenActivity.this, MainActivity.class);
-                mainIntent.putExtra("lista_eventos", (Serializable) listaEventos);
                 startActivity(mainIntent);
 
                 // Close the activity so the user won't able to go back this
@@ -61,7 +60,7 @@ public class SplashScreenActivity extends Activity {
 
         // Simulate a long loading process on application startup.
         Timer timer = new Timer();
-        timer.schedule(task, 8000);
+        timer.schedule(task, 3000);
     }
 
 

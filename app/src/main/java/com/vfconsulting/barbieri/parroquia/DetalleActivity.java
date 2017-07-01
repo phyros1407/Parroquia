@@ -1,11 +1,17 @@
 package com.vfconsulting.barbieri.parroquia;
 
-import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,17 +35,17 @@ import java.util.List;
  * Created by barbb on 22/06/2017.
  */
 
-public class DetalleActivity extends Activity{
+public class DetalleActivity extends AppCompatActivity{
 
     private ActividadAdapter aAdapter;
     private List<ActividadBean> actividades = new ArrayList<>();
     private RecyclerView recyclerView;
+    private CollapsingToolbarLayout ctl;
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detalle_activity);
-
 
         ImageView boton_atras =(ImageView) findViewById(R.id.btn_atras);
 
@@ -52,9 +58,7 @@ public class DetalleActivity extends Activity{
             }
         });
 
-
         recyclerView = (RecyclerView) findViewById(R.id.lista_reciclada_2);
-
 
         //SETEANDO EL ADAPTER Y RECYCLER VIEW
         aAdapter = new ActividadAdapter(actividades);
@@ -62,6 +66,7 @@ public class DetalleActivity extends Activity{
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(aAdapter);
+
 
 
         prepararInformacionGeneral();
@@ -114,8 +119,8 @@ public class DetalleActivity extends Activity{
 
                                 String titulo = jsonObject.getString("titulo");
                                 String descripcion = jsonObject.getString("descripcion");
-                                /*String hora_inicio = jsonObject.getString("hora_inicio_actividad");
-                                String hora_fin = jsonObject.getString("hora_fin_actividad");*/
+                                String hora_inicio = jsonObject.getString("hora_inicio_actividad");
+                                String hora_fin = jsonObject.getString("hora_fin_actividad");
                                 String fecha_inicio_actividad = jsonObject.getString("fecha_inicio_actividad");
 
 
@@ -124,8 +129,8 @@ public class DetalleActivity extends Activity{
 
                                 actividad.setTitulo(titulo);
                                 actividad.setDescripcion(descripcion);
-                                /*actividad.setHora_fin(hora_fin);
-                                actividad.setHora_inicio(hora_inicio);*/
+                                actividad.setHora_fin(hora_fin);
+                                actividad.setHora_inicio(hora_inicio);
                                 actividad.setFecha_inicio_actividad(fecha_inicio_actividad);
 
                                 actividades.add(actividad);
@@ -153,4 +158,6 @@ public class DetalleActivity extends Activity{
 
 
     }
+
+
 }
