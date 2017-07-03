@@ -1,5 +1,6 @@
 package com.vfconsulting.barbieri.parroquia.Adapters;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.MyVi
         public TextView hora_inicio;
         public TextView hora_fin;
         public TextView fecha_inicio;
+        public CardView carta;
 
         public MyViewHolder(View view) {
             super(view);
@@ -39,10 +41,7 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.MyVi
 
     public ActividadAdapter(List<ActividadBean> listarActividades) {
 
-
         this.listarActividades = listarActividades;
-
-
 
     }
 

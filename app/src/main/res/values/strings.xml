@@ -14,4 +14,7 @@
     <string name="no_location_detected">NO SE DETECTO SU LOCALIZACIÓN</string>
 
     <string name="buscador">Iglesias o parroquias</string>
+
+    <string name="key_javascript">AIzaSyBcCy8g5hBDmw5bvA4VvUSfVwGSS2cZ1FA</string>
+
 </resources>

@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
@@ -13,8 +14,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -40,25 +42,25 @@ public class DetalleActivity extends AppCompatActivity{
     private ActividadAdapter aAdapter;
     private List<ActividadBean> actividades = new ArrayList<>();
     private RecyclerView recyclerView;
-    private CollapsingToolbarLayout ctl;
+    private CollapsingToolbarLayout collapsingToolbarLayout = null;
+
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detalle_activity);
 
-        ImageView boton_atras =(ImageView) findViewById(R.id.btn_atras);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_1);
+        setSupportActionBar(toolbar);
 
-        boton_atras.setImageResource(R.drawable.icons8_atr_s_100);
-        boton_atras.setMaxHeight(15);
-        boton_atras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed(); // Implemented by activity
-            }
-        });
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
-        recyclerView = (RecyclerView) findViewById(R.id.lista_reciclada_2);
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setTitle(getIntent().getExtras().getString("titulo_evento"));
+
+        recyclerView = (RecyclerView) findViewById(R.id.lista_reciclada_5);
 
         //SETEANDO EL ADAPTER Y RECYCLER VIEW
         aAdapter = new ActividadAdapter(actividades);
@@ -67,10 +69,10 @@ public class DetalleActivity extends AppCompatActivity{
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(aAdapter);
 
-
-
         prepararInformacionGeneral();
         prepareActividadesData();
+        //dynamicToolbarColor();
+        toolbarTextAppernce();
 
     }
 
@@ -157,6 +159,46 @@ public class DetalleActivity extends AppCompatActivity{
         MySingleton.getInstance(this).addToRequestQueue(arrayreq);
 
 
+    }
+
+
+    private void dynamicToolbarColor() {
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+                R.drawable.logo_congreso);
+        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                collapsingToolbarLayout.setContentScrimColor(palette.getMutedColor(R.color.primary_dark));
+                collapsingToolbarLayout.setStatusBarScrimColor(palette.getMutedColor(R.color.primary_dark));
+            }
+        });
+    }
+
+
+    private void toolbarTextAppernce() {
+        collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedappbar);
+        collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedappbar);
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

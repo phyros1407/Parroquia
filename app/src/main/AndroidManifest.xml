@@ -42,7 +42,14 @@
         </activity>
 
         <activity android:name=".DetalleActivity"
-                  android:screenOrientation="portrait"></activity>
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".MainActivity">
+
+                <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.vfconsulting.barbieri.parroquia.MainActivity" />
+
+        </activity>
         <activity android:name=".HorarioActivity"
                   android:screenOrientation="portrait"
                   android:theme="@style/Theme.UserDialog">
