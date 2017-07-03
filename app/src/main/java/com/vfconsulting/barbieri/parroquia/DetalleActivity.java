@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
@@ -16,8 +17,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -43,6 +46,7 @@ public class DetalleActivity extends AppCompatActivity{
     private List<ActividadBean> actividades = new ArrayList<>();
     private RecyclerView recyclerView;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
+    private FloatingActionButton flotante;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,18 @@ public class DetalleActivity extends AppCompatActivity{
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(aAdapter);
+
+        flotante = (FloatingActionButton) findViewById(R.id.flotante_1);
+
+        flotante.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flotante.setImageResource(R.mipmap.ic_check);
+                flotante.setEnabled(false);
+                Toast toast = Toast.makeText(getApplicationContext(), "Asistiré!", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
 
         prepararInformacionGeneral();
         prepareActividadesData();
@@ -169,8 +185,8 @@ public class DetalleActivity extends AppCompatActivity{
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
-                collapsingToolbarLayout.setContentScrimColor(palette.getMutedColor(R.color.primary_dark));
-                collapsingToolbarLayout.setStatusBarScrimColor(palette.getMutedColor(R.color.primary_dark));
+                collapsingToolbarLayout.setContentScrimColor(palette.getMutedColor(R.color.icons));
+                collapsingToolbarLayout.setStatusBarScrimColor(palette.getMutedColor(R.color.icons));
             }
         });
     }
@@ -186,8 +202,8 @@ public class DetalleActivity extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return false;
+        //getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
     @Override

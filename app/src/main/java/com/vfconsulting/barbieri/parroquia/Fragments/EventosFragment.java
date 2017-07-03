@@ -1,8 +1,11 @@
 package com.vfconsulting.barbieri.parroquia.Fragments;
 
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -61,6 +64,7 @@ public class EventosFragment extends Fragment {
         //EVENTOS CLICk
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new MainActivity.ClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view, int position) {
 
@@ -74,7 +78,7 @@ public class EventosFragment extends Fragment {
                 intent.putExtra("fecha_inicio",evento.getFec_ini());
                 intent.putExtra("fecha_fin",evento.getFec_fin());
                 intent.putExtra("descripcion_evento",evento.getDescripcion());
-                startActivity(intent);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
 
                 //Toast.makeText(getContext(), evento.getTitulo() + " is selected!"+evento.getId(), Toast.LENGTH_SHORT).show();
             }

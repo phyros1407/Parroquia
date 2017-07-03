@@ -55,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="4dp"
+                android:layout_marginBottom="15dp"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -134,10 +135,11 @@
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/flotante_1"
         android:elevation="6dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/mr_button_connected_light"
+        android:src="@mipmap/ic_add"
         app:pressedTranslationZ="12dp"
         app:layout_anchor="@id/app_layout"
         app:layout_anchorGravity="bottom|right|end"

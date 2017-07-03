@@ -62,7 +62,7 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.MyVi
        /* holder.hora_inicio.setText(actividad.getHora_inicio());
         holder.hora_fin.setText(actividad.getHora_fin());*/
         holder.fecha_inicio.setText(actividad.getFecha_inicio_actividad());
-        // holder.fondo.setImageResource(evento.));
+
     }
 
 

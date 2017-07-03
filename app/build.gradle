@@ -39,7 +39,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:11.0.0'
     compile 'com.google.android.gms:play-services-maps:11.0.0'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
-    compile 'com.github.fafaldo:fab-toolbar:1.2.0'
+    compile 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
 
 
 
