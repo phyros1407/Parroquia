@@ -96,7 +96,7 @@ public class EventosFragment extends Fragment {
     //CARGANDO DATOS CON VOLLEY
     private void prepareEventosData() {
 
-        String url = "http://env-1201049.jelasticlw.com.br/serviciosparroquia/index.php/eventos";
+        String url = "http://52.15.40.243/serviciosparroquia/index.php/eventos";
 
         JsonArrayRequest arrayreq = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {

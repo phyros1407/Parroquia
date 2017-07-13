@@ -69,7 +69,7 @@ public class HorarioFragment extends Fragment {
 
     public void conseguirHorarios(int id_parroquia,int id_dia){
 
-        String url = "http://env-1201049.jelasticlw.com.br/serviciosparroquia/index.php/horarios_misa?id_parroquia=" + id_parroquia+"&id_dia="+id_dia ;
+        String url = "http://52.15.40.243/serviciosparroquia/index.php/horarios_misa?id_parroquia=" + id_parroquia+"&id_dia="+id_dia ;
         Log.e("url---> ",url);
 
         JsonArrayRequest arrayreq = new JsonArrayRequest(url,

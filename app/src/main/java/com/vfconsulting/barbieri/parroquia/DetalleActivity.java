@@ -118,7 +118,7 @@ public class DetalleActivity extends AppCompatActivity{
 
         int id = getIntent().getExtras().getInt("id_evento");
 
-        String url = "http://env-1201049.jelasticlw.com.br/serviciosparroquia/index.php/actividades?id_evento="+id;
+        String url = "http://52.15.40.243/serviciosparroquia/index.php/actividades?id_evento="+id;
 
         JsonArrayRequest arrayreq = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {

@@ -220,7 +220,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
 
     private void setUpMap() {
 
-        String url = "http://env-1201049.jelasticlw.com.br/serviciosparroquia/index.php/parroquia";
+        String url = "http://52.15.40.243/serviciosparroquia/index.php/parroquia";
 
         JsonArrayRequest arrayreq = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
