@@ -1,11 +1,15 @@
 package com.vfconsulting.barbieri.parroquia.Adapters;
 
+import android.animation.ValueAnimator;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.text.Text;
@@ -29,13 +33,36 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.MyVi
         public TextView hora_fin;
         public TextView fecha_inicio;
         public CardView carta;
+        public ImageView ibtn;
+        public TextView descripcion;
 
         public MyViewHolder(View view) {
             super(view);
             titulo = (TextView) view.findViewById(R.id.titulo_actividad);
+            descripcion = (TextView) view.findViewById(R.id.descripcion_actividad);
+            collapse(descripcion, 500, 0);
+
             /*hora_inicio = (TextView) view.findViewById(R.id.hora_inicio);
             hora_fin = (TextView) view.findViewById(R.id.hora_fin);*/
             fecha_inicio = (TextView) view.findViewById(R.id.fecha_inicio_actividad);
+            ibtn= (ImageView)view.findViewById(R.id.btn_colapsar);
+
+            ibtn.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    if(descripcion.getLayoutParams().height==0){
+                        int tamaño_fin = LinearLayout.LayoutParams.MATCH_PARENT;
+                        expand(descripcion, 500, tamaño_fin);
+                        Log.e("mensaje","esta abriendose");
+                    }else{
+                        collapse(descripcion, 500, 0);
+                        Log.e("mensaje","esta cerrandose");
+                    }
+
+                }
+            });
         }
     }
 
@@ -72,7 +99,39 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.MyVi
     }
 
 
+    public static void expand(final View v, int duration, int targetHeight) {
 
+        int prevHeight = v.getHeight();
+
+        v.setVisibility(View.VISIBLE);
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                v.getLayoutParams().height = (int) animation.getAnimatedValue();
+                v.requestLayout();
+            }
+        });
+        valueAnimator.setInterpolator(new DecelerateInterpolator());
+        valueAnimator.setDuration(duration);
+        valueAnimator.start();
+    }
+
+    public static void collapse(final View v, int duration, int targetHeight) {
+        int prevHeight = v.getHeight();
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight);
+        valueAnimator.setInterpolator(new DecelerateInterpolator());
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                v.getLayoutParams().height = (int) animation.getAnimatedValue();
+                v.requestLayout();
+            }
+        });
+        valueAnimator.setInterpolator(new DecelerateInterpolator());
+        valueAnimator.setDuration(duration);
+        valueAnimator.start();
+    }
 
 
 

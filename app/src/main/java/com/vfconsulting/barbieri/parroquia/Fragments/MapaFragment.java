@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -42,6 +43,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.PermissionCollection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +53,7 @@ import java.util.List;
 
 public class MapaFragment extends Fragment implements OnMapReadyCallback {
 
-    private final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
+
     private MapView mMapView;
     private static GoogleMap mMap;
     private Bundle mBundle;
@@ -68,21 +70,20 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
     private List<Double>longitudesI = new ArrayList<>();
     private List<Double>latitudesF = new ArrayList<>();
     private List<Double>longitudesF = new ArrayList<>();
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         inflatedView = inflater.inflate(R.layout.mapa_fragment, container, false);
 
         mMapView = (MapView) inflatedView.findViewById(R.id.map);
         mMapView.onCreate(mBundle);
         setUpMapIfNeeded(inflatedView);
         setUpMap();
-
         mMapView.getMapAsync(this);
-
         buscador = (EditText) inflatedView.findViewById(R.id.masked);
-
         return inflatedView;
     }
 
@@ -98,7 +99,6 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
             public boolean onMarkerClick(Marker marker) {
 
                 borrarLineas();
-
                 Log.e("POSICION MARCADOR -->",marker.getPosition().toString());
                 LatLng posicion = marker.getPosition();
                 CameraUpdate destino = CameraUpdateFactory.newLatLngZoom(posicion, 16);
@@ -125,7 +125,10 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
                 .position(cordenadas).title("Mi posición").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
 
         }
+
+
         mMap.animateCamera(miUbicacion);
+
     }
 
     private void borrarLineas(){
@@ -183,21 +186,18 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
 
     private void miUbicacion() {
 
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(getActivity(),
-            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-            REQUEST_PERMISSIONS_REQUEST_CODE);
+        if(ActivityCompat.checkSelfPermission(getContext(),Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED&&ActivityCompat.checkSelfPermission(getContext(),Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+            return;
         }
 
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        mi_localizacion= locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        mi_localizacion= locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         actualizarUbicacion(mi_localizacion);
-        locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 15000, 0, loListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 15000, 0, loListener);
 
         mMap.setMyLocationEnabled(true);
-    }
 
+    }
 
     @Override
     public void onStart() {
@@ -245,7 +245,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
                                 LatLng parroquia_lugar = new LatLng(jsonObject.getDouble("latitud"), jsonObject.getDouble("longitud"));
                                 mMap.addMarker(new MarkerOptions()
                                         .position(parroquia_lugar)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icono_iglesia_1))
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icono_iglesia))
                                         .snippet(jsonObject.getString("nombre")));
 
 

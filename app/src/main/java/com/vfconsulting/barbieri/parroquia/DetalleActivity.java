@@ -1,7 +1,6 @@
 package com.vfconsulting.barbieri.parroquia;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -9,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +16,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,13 +39,14 @@ import java.util.List;
  * Created by barbb on 22/06/2017.
  */
 
-public class DetalleActivity extends AppCompatActivity{
+public class DetalleActivity extends AppCompatActivity {
 
     private ActividadAdapter aAdapter;
     private List<ActividadBean> actividades = new ArrayList<>();
     private RecyclerView recyclerView;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
     private FloatingActionButton flotante;
+    private ImageView ibtn;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,20 +85,23 @@ public class DetalleActivity extends AppCompatActivity{
             }
         });
 
+
+
+
+
         prepararInformacionGeneral();
         prepareActividadesData();
-        //dynamicToolbarColor();
         toolbarTextAppernce();
 
     }
 
-    public void prepararInformacionGeneral(){
+    public void prepararInformacionGeneral() {
 
         //CARGANDO DATOS GENERALES DEL EVENTO EN DETALLE
-        TextView titulo = (TextView)findViewById(R.id.titulo_evento_general);
-        TextView parroquia = (TextView)findViewById(R.id.parroquia_evento_general);
-        TextView descripcion = (TextView)findViewById(R.id.descripcion_general);
-        TextView rango_fecha = (TextView)findViewById(R.id.rango_fecha);
+        TextView titulo = (TextView) findViewById(R.id.titulo_evento_general);
+        TextView parroquia = (TextView) findViewById(R.id.parroquia_evento_general);
+        TextView descripcion = (TextView) findViewById(R.id.descripcion_general);
+        TextView rango_fecha = (TextView) findViewById(R.id.rango_fecha);
 
         String titulo_evento = getIntent().getExtras().getString("titulo_evento");
         String nombre_parroquia = getIntent().getExtras().getString("nombre_parroquia");
@@ -109,7 +112,7 @@ public class DetalleActivity extends AppCompatActivity{
         titulo.setText(titulo_evento);
         parroquia.setText(nombre_parroquia);
         descripcion.setText(descripcion_evento);
-        rango_fecha.setText("DE "+fecha_inicio+" A "+fecha_fin+"\t");
+        rango_fecha.setText("DE " + fecha_inicio + " A " + fecha_fin + "\t");
 
 
     }
@@ -118,7 +121,7 @@ public class DetalleActivity extends AppCompatActivity{
 
         int id = getIntent().getExtras().getInt("id_evento");
 
-        String url = "http://52.15.40.243/serviciosparroquia/index.php/actividades?id_evento="+id;
+        String url = "http://52.15.40.243/serviciosparroquia/index.php/actividades?id_evento=" + id;
 
         JsonArrayRequest arrayreq = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
@@ -126,13 +129,12 @@ public class DetalleActivity extends AppCompatActivity{
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            Log.e("respuesta --->",response.toString());
+                            Log.e("respuesta --->", response.toString());
 
                             actividades.clear();
 
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonObject = response.getJSONObject(i);
-
 
 
                                 String titulo = jsonObject.getString("titulo");
@@ -156,8 +158,7 @@ public class DetalleActivity extends AppCompatActivity{
                             }
 
 
-                        }
-                        catch (JSONException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
 
                             Snackbar.make(findViewById(android.R.id.content), "OCCURRIÓ UN PROBLEMA, INTENTE MAS TARDE", Snackbar.LENGTH_LONG).show();
@@ -178,25 +179,10 @@ public class DetalleActivity extends AppCompatActivity{
     }
 
 
-    private void dynamicToolbarColor() {
-
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                R.drawable.logo_congreso);
-        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                collapsingToolbarLayout.setContentScrimColor(palette.getMutedColor(R.color.icons));
-                collapsingToolbarLayout.setStatusBarScrimColor(palette.getMutedColor(R.color.icons));
-            }
-        });
-    }
-
-
     private void toolbarTextAppernce() {
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedappbar);
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedappbar);
     }
-
 
 
     @Override
@@ -216,6 +202,7 @@ public class DetalleActivity extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 
 }

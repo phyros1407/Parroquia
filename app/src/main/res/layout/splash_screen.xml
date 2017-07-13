@@ -12,7 +12,7 @@
         android:layout_height="100dp"
         android:contentDescription="@string/app_name"
         android:scaleType="fitXY"
-        android:src="@drawable/icono_iglesia_1"
+        android:background="@drawable/logo_parroquia"
         android:layout_marginBottom="30dp"/>
 
     <pl.droidsonroids.gif.GifTextView

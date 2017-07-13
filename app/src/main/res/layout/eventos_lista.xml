@@ -6,10 +6,8 @@
     android:layout_gravity="center_horizontal"
     android:layout_width="match_parent"
     android:layout_height="230dp"
-    card_view:cardCornerRadius="4dp"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="10dp"
     android:elevation="@dimen/elevacion_card">
-
 
         <LinearLayout
             android:orientation="vertical"
@@ -37,7 +35,7 @@
                     <TextView
                         android:id="@+id/titulo"
                         android:layout_marginTop="15dp"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="15dp"
@@ -48,7 +46,7 @@
 
                     <TextView
                         android:id="@+id/nombre_parroquia_evento"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="15dp"
@@ -62,15 +60,13 @@
                     android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|center_horizontal">
 
                     <TextView
                         android:id="@+id/fecha_inicio"
-                        android:layout_marginTop="15dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|center_horizontal"
-
                         android:textColor="@color/primary_text"
                         android:textSize="18dp"
                         android:text="27 JUN"
@@ -79,9 +75,7 @@
 
                 </LinearLayout>
 
-
             </LinearLayout>
-
 
         </LinearLayout>
 

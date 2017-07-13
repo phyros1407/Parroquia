@@ -30,13 +30,11 @@ public class MainActivity  extends FragmentActivity {
         titulos.add("Evento");
         titulos.add("Misas");
         titulos.add("Mapa");
-        //  AGREGANDO A LA TABs
 
         setupViewPager(viewPager);
         tabs.setupWithViewPager(viewPager);
         tabTitle();
     }
-    //CONSTRUIR PENSTAÑAS
 
     private void setupViewPager(ViewPager viewPager) {
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
@@ -55,7 +53,6 @@ public class MainActivity  extends FragmentActivity {
     public interface ClickListener {
 
         void onClick(View view, int position);
-
         void onLongClick(View view, int position);
     }
 

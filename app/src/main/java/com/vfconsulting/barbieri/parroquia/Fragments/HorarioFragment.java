@@ -59,9 +59,6 @@ public class HorarioFragment extends Fragment {
 
         conseguirHorarios(id_parroquia,id_dia);
 
-
-        //SETEANDO EL ADAPTER Y RECYCLER VIEW
-
         return root_view;
     }
 
