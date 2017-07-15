@@ -1,7 +1,9 @@
 package com.vfconsulting.barbieri.parroquia.Fragments;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +40,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.vfconsulting.barbieri.parroquia.Beans.ParroquiaBean;
+import com.vfconsulting.barbieri.parroquia.SplashScreenActivity;
 import com.vfconsulting.barbieri.parroquia.Support.MySingleton;
 import com.vfconsulting.barbieri.parroquia.R;
 import org.json.JSONArray;
@@ -70,14 +74,12 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
     private List<Double>longitudesI = new ArrayList<>();
     private List<Double>latitudesF = new ArrayList<>();
     private List<Double>longitudesF = new ArrayList<>();
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         inflatedView = inflater.inflate(R.layout.mapa_fragment, container, false);
-
         mMapView = (MapView) inflatedView.findViewById(R.id.map);
         mMapView.onCreate(mBundle);
         setUpMapIfNeeded(inflatedView);
@@ -191,7 +193,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
         }
 
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        mi_localizacion= locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        mi_localizacion= locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         actualizarUbicacion(mi_localizacion);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 15000, 0, loListener);
 
@@ -204,12 +206,14 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
 
         super.onStart();
 
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBundle = savedInstanceState;
+
     }
 
     private void setUpMapIfNeeded(View inflatedView) {
@@ -366,5 +370,52 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
         super.onLowMemory();
         mMapView.onLowMemory();
     }
+
+
+
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(getActivity().getParent())
+                        .setTitle("Permisos Requeridos")
+                        .setMessage("Otorguele permisos de ubicación a la aplicacion Familia Don de Dios")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(getActivity(),
+                                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+
 
 }

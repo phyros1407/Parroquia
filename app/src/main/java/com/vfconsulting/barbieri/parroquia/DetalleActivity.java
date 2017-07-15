@@ -48,8 +48,6 @@ public class DetalleActivity extends AppCompatActivity {
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
     private FloatingActionButton flotante;
 
-    ArrayList<String> meses = new ArrayList<>();
-    ArrayList<String> meses2 = new ArrayList<>();
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,58 +110,9 @@ public class DetalleActivity extends AppCompatActivity {
         parroquia.setText(nombre_parroquia);
         descripcion.setText(descripcion_evento);
 
-        llenarCalendarios();
-
-        for (int i = 0;i<meses.size();i++){
-
-            if(fecha_inicio.substring(3).trim().equalsIgnoreCase(meses.get(i).getBytes().toString())){
-                Log.e("mes en ingles",meses.get(i));
-                Log.e("mes en español",meses2.get(i));
-                Log.e("fecha_mes",fecha_inicio.substring(3));
-
-                Log.e("mensaje","se encontro coincidencia");
-                fecha_inicio=  fecha_inicio.replace(fecha_inicio.substring(3),meses2.get(i));
-            }
-
-        }
-
         rango_fecha.setText("De " +fecha_inicio + " a " + fecha_fin + "\t");
-
-
+        
     }
-
-    public void llenarCalendarios(){
-
-
-
-        meses.add("January");
-        meses.add("February");
-        meses.add("March");
-        meses.add("April");
-        meses.add("May");
-        meses.add("June");
-        meses.add("July");
-        meses.add("August");
-        meses.add("September");
-        meses.add("October");
-        meses.add("November");
-        meses.add("December");
-
-        ArrayList<String> meses2 = new ArrayList<>();
-        meses2.add("Enero");
-        meses2.add("Febrero");
-        meses2.add("Marzo");
-        meses2.add("Abril");
-        meses2.add("Mayo");
-        meses2.add("Junio");
-        meses2.add("Julio");
-        meses2.add("Agosto");
-        meses2.add("Setiembre");
-        meses2.add("Octubre");
-        meses2.add("Noviembre");
-        meses2.add("Diciembre");
-    }
-
 
     private void prepareActividadesData() {
 

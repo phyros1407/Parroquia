@@ -55,11 +55,11 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.MyVi
 
                     if(contenido_desplegable.getVisibility()==View.GONE||contenido_desplegable.getVisibility()==View.INVISIBLE){
                         expand(contenido_desplegable);
-                        ibtn.setImageResource(R.drawable.ic_group_collapse_00);
+                        ibtn.setImageResource(R.drawable.icons8_adelante_100);
                         Log.e("mensaje","esta abriendose");
                     }else{
                         collapse(contenido_desplegable);
-                        ibtn.setImageResource(R.drawable.ic_group_collapse_08);
+                        ibtn.setImageResource(R.drawable.icons8_atras_100);
                         Log.e("mensaje","esta cerrandose");
                     }
 
