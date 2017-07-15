@@ -71,12 +71,12 @@ public class SplashScreenActivity extends Activity {
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-
+            Log.e("mensaje","Entra aca 1");
 
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-
+                Log.e("mensaje","Entra aca 2");
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
@@ -87,9 +87,14 @@ public class SplashScreenActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
+                                Log.e("mensaje","Entra aca 3");
                                 ActivityCompat.requestPermissions(SplashScreenActivity.this,
                                         new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION);
+
+
+                                Timer timer = new Timer();
+                                timer.schedule(task, 3000);
 
                             }
                         })
@@ -100,7 +105,7 @@ public class SplashScreenActivity extends Activity {
                                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                                 == PackageManager.PERMISSION_GRANTED) {
 
-
+                            Log.e("mensaje","Entra aca 4");
                             Timer timer = new Timer();
                             timer.schedule(task, 3000);
 
@@ -113,22 +118,18 @@ public class SplashScreenActivity extends Activity {
                         new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
 
-
-                if (ActivityCompat.checkSelfPermission(this,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION)
-                        == PackageManager.PERMISSION_GRANTED) {
-
+                    Log.e("mensaje","Entra aca 5");
 
                     Timer timer = new Timer();
                     timer.schedule(task, 3000);
 
-                }
 
 
             }
             return false;
         } else {
 
+            Log.e("mensaje","Entra aca 6");
 
             Timer timer = new Timer();
             timer.schedule(task, 3000);
