@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,24 +28,22 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.MyVi
 
     private List<ActividadBean> listarActividades;
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView titulo;
-        public TextView hora_inicio;
-        public TextView hora_fin;
+        public TextView rango_hora;
         public TextView fecha_inicio;
-        public CardView carta;
         public ImageView ibtn;
         public TextView descripcion;
+        public LinearLayout contenido_desplegable;
 
         public MyViewHolder(View view) {
             super(view);
             titulo = (TextView) view.findViewById(R.id.titulo_actividad);
             descripcion = (TextView) view.findViewById(R.id.descripcion_actividad);
-            collapse(descripcion, 500, 0);
+            contenido_desplegable = (LinearLayout)view.findViewById(R.id.menu_desplegable);
+            contenido_desplegable.setVisibility(View.GONE);
 
-            /*hora_inicio = (TextView) view.findViewById(R.id.hora_inicio);
-            hora_fin = (TextView) view.findViewById(R.id.hora_fin);*/
+            rango_hora = (TextView) view.findViewById(R.id.hora_actividad);
             fecha_inicio = (TextView) view.findViewById(R.id.fecha_inicio_actividad);
             ibtn= (ImageView)view.findViewById(R.id.btn_colapsar);
 
@@ -52,12 +52,14 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.MyVi
                 @Override
                 public void onClick(View v) {
 
-                    if(descripcion.getLayoutParams().height==0){
-                        int tamaño_fin = LinearLayout.LayoutParams.MATCH_PARENT;
-                        expand(descripcion, 500, tamaño_fin);
+
+                    if(contenido_desplegable.getVisibility()==View.GONE||contenido_desplegable.getVisibility()==View.INVISIBLE){
+                        expand(contenido_desplegable);
+                        ibtn.setImageResource(R.drawable.ic_group_collapse_00);
                         Log.e("mensaje","esta abriendose");
                     }else{
-                        collapse(descripcion, 500, 0);
+                        collapse(contenido_desplegable);
+                        ibtn.setImageResource(R.drawable.ic_group_collapse_08);
                         Log.e("mensaje","esta cerrandose");
                     }
 
@@ -86,53 +88,69 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.MyVi
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ActividadBean actividad = listarActividades.get(position);
         holder.titulo.setText(actividad.getTitulo());
-       /* holder.hora_inicio.setText(actividad.getHora_inicio());
-        holder.hora_fin.setText(actividad.getHora_fin());*/
+        holder.rango_hora.setText("DESDE "+actividad.getHora_inicio()+" HASTA "+actividad.getHora_fin());
         holder.fecha_inicio.setText(actividad.getFecha_inicio_actividad());
+        holder.descripcion.setText(actividad.getDescripcion());
 
     }
-
 
     @Override
     public int getItemCount() {
         return listarActividades.size();
     }
 
+    public static void expand(final View v) {
+        v.measure(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        final int targetHeight = v.getMeasuredHeight();
 
-    public static void expand(final View v, int duration, int targetHeight) {
-
-        int prevHeight = v.getHeight();
-
+        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
+        v.getLayoutParams().height = 1;
         v.setVisibility(View.VISIBLE);
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        Animation a = new Animation()
+        {
             @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                v.getLayoutParams().height = (int) animation.getAnimatedValue();
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                v.getLayoutParams().height = interpolatedTime == 1
+                        ? LinearLayout.LayoutParams.WRAP_CONTENT
+                        : (int)(targetHeight * interpolatedTime);
                 v.requestLayout();
             }
-        });
-        valueAnimator.setInterpolator(new DecelerateInterpolator());
-        valueAnimator.setDuration(duration);
-        valueAnimator.start();
-    }
 
-    public static void collapse(final View v, int duration, int targetHeight) {
-        int prevHeight = v.getHeight();
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight);
-        valueAnimator.setInterpolator(new DecelerateInterpolator());
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                v.getLayoutParams().height = (int) animation.getAnimatedValue();
-                v.requestLayout();
+            public boolean willChangeBounds() {
+                return true;
             }
-        });
-        valueAnimator.setInterpolator(new DecelerateInterpolator());
-        valueAnimator.setDuration(duration);
-        valueAnimator.start();
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
     }
 
+    public static void collapse(final View v) {
+        final int initialHeight = v.getMeasuredHeight();
 
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                if(interpolatedTime == 1){
+                    v.setVisibility(View.GONE);
+                }else{
+                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
+                    v.requestLayout();
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.vfconsulting.barbieri.parroquia;
 
 import android.animation.ValueAnimator;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -46,7 +47,9 @@ public class DetalleActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
     private FloatingActionButton flotante;
-    private ImageView ibtn;
+
+    ArrayList<String> meses = new ArrayList<>();
+    ArrayList<String> meses2 = new ArrayList<>();
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +63,9 @@ public class DetalleActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(getIntent().getExtras().getString("titulo_evento"));
+        collapsingToolbarLayout.setExpandedTitleTypeface(Typeface.DEFAULT_BOLD);
 
         recyclerView = (RecyclerView) findViewById(R.id.lista_reciclada_5);
 
@@ -74,7 +77,7 @@ public class DetalleActivity extends AppCompatActivity {
         recyclerView.setAdapter(aAdapter);
 
         flotante = (FloatingActionButton) findViewById(R.id.flotante_1);
-
+        flotante.setVisibility(View.GONE);
         flotante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,10 +87,6 @@ public class DetalleActivity extends AppCompatActivity {
                 toast.show();
             }
         });
-
-
-
-
 
         prepararInformacionGeneral();
         prepareActividadesData();
@@ -112,10 +111,59 @@ public class DetalleActivity extends AppCompatActivity {
         titulo.setText(titulo_evento);
         parroquia.setText(nombre_parroquia);
         descripcion.setText(descripcion_evento);
-        rango_fecha.setText("DE " + fecha_inicio + " A " + fecha_fin + "\t");
+
+        llenarCalendarios();
+
+        for (int i = 0;i<meses.size();i++){
+
+            if(fecha_inicio.substring(3).trim().equalsIgnoreCase(meses.get(i).getBytes().toString())){
+                Log.e("mes en ingles",meses.get(i));
+                Log.e("mes en español",meses2.get(i));
+                Log.e("fecha_mes",fecha_inicio.substring(3));
+
+                Log.e("mensaje","se encontro coincidencia");
+                fecha_inicio=  fecha_inicio.replace(fecha_inicio.substring(3),meses2.get(i));
+            }
+
+        }
+
+        rango_fecha.setText("De " +fecha_inicio + " a " + fecha_fin + "\t");
 
 
     }
+
+    public void llenarCalendarios(){
+
+
+
+        meses.add("January");
+        meses.add("February");
+        meses.add("March");
+        meses.add("April");
+        meses.add("May");
+        meses.add("June");
+        meses.add("July");
+        meses.add("August");
+        meses.add("September");
+        meses.add("October");
+        meses.add("November");
+        meses.add("December");
+
+        ArrayList<String> meses2 = new ArrayList<>();
+        meses2.add("Enero");
+        meses2.add("Febrero");
+        meses2.add("Marzo");
+        meses2.add("Abril");
+        meses2.add("Mayo");
+        meses2.add("Junio");
+        meses2.add("Julio");
+        meses2.add("Agosto");
+        meses2.add("Setiembre");
+        meses2.add("Octubre");
+        meses2.add("Noviembre");
+        meses2.add("Diciembre");
+    }
+
 
     private void prepareActividadesData() {
 

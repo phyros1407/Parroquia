@@ -18,53 +18,30 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical">
-
-                <LinearLayout
-                    android:id="@+id/area_expandir"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3">
-
-
 
                     <TextView
                         android:id="@+id/titulo_actividad"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="15dp"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:textColor="@color/primary_text"
+                        android:gravity="center_vertical|"
+                        android:textColor="@color/primary_dark"
                         android:textSize="18dp"
                         android:text="Titulo de la actividad"
                         />
 
-                    <TextView
-                        android:id="@+id/descripcion_actividad"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:textColor="@color/primary_text"
-                        android:textSize="18dp"
-                        android:text="Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas , las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum."
-                        />
-
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal">
+                    android:gravity="center_horizontal|center_vertical">
 
                     <TextView
                         android:id="@+id/fecha_inicio_actividad"
@@ -72,15 +49,15 @@
                         android:layout_height="wrap_content"
                         android:text="20 JUN"
                         android:gravity="center_horizontal"
-                        android:layout_marginBottom="15dp"
+
                         />
 
                     <ImageButton
                         android:id="@+id/btn_colapsar"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
                         android:src="@drawable/ic_group_collapse_08"
-                        android:layout_marginTop="5dp"
+                        android:background="@color/accent"
                         />
 
                 </LinearLayout>
@@ -88,9 +65,38 @@
             </LinearLayout>
 
 
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/menu_desplegable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/hora_actividad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:textColor="@color/primary_text"
+                    android:text="DESDE 8:00 HASTA LAS 9:00"/>
+
+                <TextView
+                    android:id="@+id/descripcion_actividad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="18dp"
+                    android:text="Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas , las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum."
+                    />
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
-        <View
+    <View
             android:layout_width="match_parent"
             android:layout_gravity="bottom"
             android:layout_height="1dp"
@@ -99,6 +105,10 @@
             android:background="@color/divider"/>
 
 </android.support.v7.widget.CardView>
+
+
+
+
 
 
 
