@@ -283,7 +283,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
         Log.e("destino ---> ",destino.toString());
         String des = destino.latitude+","+destino.longitude;
 
-        String url = "https://maps.googleapis.com/maps/api/directions/json?origin="+ ori +"&destination=" + des + "&key=AIzaSyBcCy8g5hBDmw5bvA4VvUSfVwGSS2cZ1FA";
+        String url = "https://maps.googleapis.com/maps/api/directions/json?origin="+ ori +"&destination=" + des + "&avoid=tolls|ferries&key=AIzaSyBcCy8g5hBDmw5bvA4VvUSfVwGSS2cZ1FA";
 
        // String url= "https://maps.googleapis.com/maps/api/directions/json?origin=av+la+marina+1100+san+miguel&destination=av+varela+miraflores&key=AIzaSyBcCy8g5hBDmw5bvA4VvUSfVwGSS2cZ1FA";
 

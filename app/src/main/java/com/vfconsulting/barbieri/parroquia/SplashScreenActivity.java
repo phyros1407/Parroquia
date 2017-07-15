@@ -1,6 +1,7 @@
 package com.vfconsulting.barbieri.parroquia;
 
 import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,10 +15,15 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.kishan.askpermission.AskPermission;
+import com.kishan.askpermission.ErrorCallback;
+import com.kishan.askpermission.PermissionCallback;
+import com.kishan.askpermission.PermissionInterface;
 import com.vfconsulting.barbieri.parroquia.Beans.EventoBean;
 import com.vfconsulting.barbieri.parroquia.Support.MySingleton;
 
@@ -36,7 +42,7 @@ import java.util.TimerTask;
  * Created by barbb on 28/06/2017.
  */
 
-public class SplashScreenActivity extends Activity {
+public class SplashScreenActivity extends Activity implements PermissionCallback, ErrorCallback {
 
     private TimerTask task;
 
@@ -59,19 +65,75 @@ public class SplashScreenActivity extends Activity {
         };
 
 
+        reqPermission();
 
-
-        checkLocationPermission();
+        //checkLocationPermission();
 
     }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
+
+
+    private void reqPermission() {
+        new AskPermission.Builder(this).setPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                .setCallback(this)
+                .setErrorCallback(this)
+                .request(MY_PERMISSIONS_REQUEST_LOCATION);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode) {
+        Timer timer = new Timer();
+        timer.schedule(task, 2000);
+        Toast.makeText(this, "Permisos Concedidos", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode) {
+        Toast.makeText(this, "Permisos Rechazados", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onShowRationalDialog(final PermissionInterface permissionInterface, int requestCode) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Se necesitan los permisos requeridos para esta aplicación");
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                permissionInterface.onDialogShown();
+            }
+        });
+        builder.setNegativeButton("Cancelar", null);
+        builder.show();
+    }
+
+    @Override
+    public void onShowSettings(final PermissionInterface permissionInterface, int requestCode) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Se necesitan los permisos para esta aplicación ¿Desea abrir el menú de configuraciones?");
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                permissionInterface.onSettingsShown();
+            }
+        });
+        builder.setNegativeButton("Cancelar", null);
+        builder.show();
+    }
+
+/*
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             Log.e("mensaje","Entra aca 1");
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
+
 
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
@@ -114,15 +176,11 @@ public class SplashScreenActivity extends Activity {
 
             } else {
                 // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
 
                     Log.e("mensaje","Entra aca 5");
 
                     Timer timer = new Timer();
                     timer.schedule(task, 3000);
-
 
 
             }
@@ -136,5 +194,5 @@ public class SplashScreenActivity extends Activity {
             return true;
         }
     }
-
+*/
 }
